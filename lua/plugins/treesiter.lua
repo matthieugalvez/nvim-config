@@ -1,0 +1,31 @@
+return {
+  "nvim-treesitter/nvim-treesitter",
+  lazy = false,
+  build = ":TSUpdate",
+  opt = {
+	  highlight = { enable = true },
+	  indent = { enable = true },
+	  folds = { enable = true },
+	  ensure_installed = {
+		  "asm",
+		  "bash",
+		  "c",
+		  "cpp",
+		  "dockerfile",
+		  "gitignore",
+		  "lua",
+		  "make",
+		  "markdown",
+		  "nasm",
+		  "ocaml",
+		  "printf",
+		  "python",
+		  "regex",
+		  "rust",
+		  "toml",
+		  "yaml",
+		  "zig",
+		  "zsh"
+	  },
+  },
+}
