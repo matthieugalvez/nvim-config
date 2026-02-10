@@ -14,77 +14,42 @@ return {
 		},
 		"saadparwaiz1/cmp_luasnip", -- ajoute LuaSnip à l'autocompletion
 		"rafamadriz/friendly-snippets", -- collection de snippets pratiques
-		"hrsh7th/cmp-emoji", -- complétion d'émojis à la saisie de :
-		"onsails/lspkind.nvim", -- vs-code pictogrammes
 	},
 	config = function()
-		local cmp = require("cmp")
+		local cmp = require 'cmp'
+		local luasnip = require 'luasnip'
+		require('luasnip.loaders.from_vscode').lazy_load()
+		luasnip.config.setup {}
 
-		local luasnip = require("luasnip")
-
-		local lspkind = require("lspkind")
-
-		-- chargement des snippets (e.g. friendly-snippets)
-		require("luasnip.loaders.from_vscode").lazy_load()
-
-		cmp.setup({
-			completion = {
-				completeopt = "menu,menuone,preview,noselect",
-			},
-			snippet = { -- on utilise luasnip comme moteur de snippets
+		cmp.setup {
+			snippet = {
 				expand = function(args)
 					luasnip.lsp_expand(args.body)
 				end,
 			},
-			mapping = {
-				["<Up>"] = cmp.mapping.select_prev_item(),
-				["<Down>"] = cmp.mapping.select_next_item(),
-				["<C-e>"] = cmp.mapping.abort(),
-				["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accepte la sélection courante. Mettre à `false` pour ne confirmer que les items explicitement sélectionnés
-			},
-
-			-- sources pour l'autocompletion
-			sources = cmp.config.sources({
-				{ name = "nvim_lsp" }, -- lsp
-				{ name = "nvim_lua" },
-				{ name = "luasnip" }, -- snippets
-				{ name = "buffer" }, -- texte du buffer courant
-				{ name = "path" }, -- chemins dy système de fichier
-				{ name = "emoji" }, -- emojis
-			}),
-
-			formatting = {
-				-- Comportement par défaut
-				expandable_indicator = true,
-				-- Champs affichés par défaut
-				fields = { "abbr", "kind" },
-				format = lspkind.cmp_format({
-					mode = "symbol_text",
-				}),
-			},
-		})
-
-		-- `/` complétion
-		cmp.setup.cmdline("/", {
-			mapping = cmp.mapping.preset.cmdline(),
-			sources = {
-				{ name = "buffer" },
-			},
-		})
-
-		-- `:` complétion
-		cmp.setup.cmdline(":", {
-			mapping = cmp.mapping.preset.cmdline(),
-			sources = cmp.config.sources({
-				{ name = "path" },
-			}, {
-				{
-					name = "cmdline",
-					option = {
-						ignore_cmds = { "Man", "!" },
-					},
+			mapping = cmp.mapping.preset.insert {
+				['<Down>'] = cmp.mapping.select_next_item(),
+				['<Up>'] = cmp.mapping.select_prev_item(),
+				['<C-Space>'] = cmp.mapping.complete {},
+				['<C-e>'] = cmp.mapping.abort(),
+				['<CR>'] = cmp.mapping.confirm {
+					behavior = cmp.ConfirmBehavior.insert,
+					select = false,
 				},
-			}),
-		})
+				['<S-Tab>'] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.select_next_item()
+					elseif luasnip.expand_or_locally_jumpable() then
+						luasnip.expand_or_jump()
+					else
+						fallback()
+					end
+				end, { 'i', 's' }),
+			},
+			sources = {
+				{ name = 'nvim_lsp' },
+				{ name = 'luasnip' },
+			},
+		}
 	end,
 }

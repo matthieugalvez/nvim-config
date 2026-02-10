@@ -23,8 +23,4 @@ keymap("n", "<C-Down>", "<C-w>j", { desc = "Déplace le curseur dans la fenêtre
 keymap("n", "<C-Up>", "<C-w>k", { desc = "Déplace le curseur dans la fenêtre du haut" })
 keymap("n", "<C-Right>", "<C-w>l", { desc = "Déplace le curseur dans la fenêtre droite" })
 
--- Navigation entre les buffers
-keymap("n", "<S-Right>", ":bnext<CR>", opts)
-keymap("n", "<S-Left>", ":bprevious<CR>", opts)
-
 keymap("n", "<C-h>", ":Neotree toggle<CR>", { desc = "Toggle Neo-tree" })
