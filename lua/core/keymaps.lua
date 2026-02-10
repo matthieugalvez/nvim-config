@@ -15,6 +15,7 @@ keymap("x", "<S-i>", ":move '<-2<CR>gv-gv", { desc = "Déplace le texte sélecti
 keymap("x", "<S-k>", ":move '>+1<CR>gv-gv", { desc = "Déplace le texte sélectionné vers le bas en mode visuel bloc" })
 
 keymap("n", "<leader>l", ":Lazy<CR>", { desc = "Lance lazy.nvim" })
+keymap("n", "<leader>m", ":Mason<CR>", { desc = "Lance Mason" })
 
 -- Changement de fenêtre avec Ctrl + déplacement uniquement au lieu de Ctrl-w + déplacement
 keymap("n", "<C-Left>", "<C-w>h", { desc = "Déplace le curseur dans la fenêtre de gauche" })

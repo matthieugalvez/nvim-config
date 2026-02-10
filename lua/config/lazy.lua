@@ -16,11 +16,13 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Configuration de lazy.nvim et importation du répertoire `plugins`
-require("lazy").setup({ { import = "plugins" } }, {
+require("lazy").setup({ { import = "plugins" }, { import = "plugins.lsp" } }, {
 	checker = {
 		enabled = true,
 		notify = false,
 	},
+
+	install = { colorscheme = { "kanagawa" } },
 
   -- désactive la pénible notification au démarrage
   change_detection = {
