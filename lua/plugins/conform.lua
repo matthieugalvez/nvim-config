@@ -7,15 +7,13 @@ return {
 
 		conform.setup({
 			formatters_by_ft = {
-				bash = { "shellcheck", "shfmt" },
+				bash = { "shfmt" },
 				c = { "clang-format" },
 				cpp = { "clang-format" },
-				dockerfile = { "dockerfmt" },
 				lua = { "stylua" },
 				python = { "ruff_fix", "ruff_format" },
 				rust = { "rustfmt" },
 				yaml = { "prettier" },
-				zig = { "zigfmt" },
 			},
 			format_on_save = {
 				lsp_fallback = true,

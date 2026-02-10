@@ -1,18 +1,18 @@
 return {
-	'lukas-reineke/indent-blankline.nvim',
+	"lukas-reineke/indent-blankline.nvim",
 	main = "ibl",
 	opts = {
 		indent = {
-			char = '│',
-			tab_char = '│',
+			char = "│",
+			tab_char = "│",
 		},
 		whitespace = {
-			highlight = { "Whitespace", "Nontext" }
+			-- highlight = { "Whitespace", "Nontext" }
 		},
 		scope = {
-			highlight = { "Function", "Label" },
-			show_start = true,
-			show_end = true,
+			-- highlight = { "Function", "Label" },
+			show_start = false,
+			show_end = false,
 		},
 		exclude = {
 			filetypes = {
@@ -25,8 +25,8 @@ return {
 				"gitcommit",
 				"TelescopePrompt",
 				"TelescopeResults",
-				""
+				"",
 			},
-		}
-	}
+		},
+	},
 }

@@ -5,7 +5,7 @@ opt.number = true -- affiche le numéro absolu de la ligne active lorsque que re
 
 -- tabs & indentation
 opt.tabstop = 4
--- opt.shiftwidth = 4
+opt.shiftwidth = 4
 opt.autoindent = true -- on garde l'indentation actuelle à la prochaine ligne
 
 -- recherche
