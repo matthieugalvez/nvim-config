@@ -7,10 +7,10 @@ return {
 			tab_char = "│",
 		},
 		whitespace = {
-			-- highlight = { "Whitespace", "Nontext" }
+			highlight = { "Whitespace", "Nontext" },
 		},
 		scope = {
-			-- highlight = { "Function", "Label" },
+			highlight = { "Function", "Label" },
 			show_start = false,
 			show_end = false,
 		},

@@ -53,7 +53,9 @@ return {
 			tabline = {},
 			winbar = {},
 			inactive_winbar = {},
-			extensions = {},
+			extensions = {
+				"neo-tree",
+			},
 		})
 	end,
 }
