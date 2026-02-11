@@ -10,9 +10,9 @@ return {
 			highlight = { "Whitespace", "Nontext" },
 		},
 		scope = {
-			highlight = { "Function", "Label" },
-			show_start = false,
-			show_end = false,
+			highlight = { "Function", "Statement", "Conditional", "Repeat", "Label", "Keyword", "Exception" },
+			show_start = true,
+			show_end = true,
 		},
 		exclude = {
 			filetypes = {

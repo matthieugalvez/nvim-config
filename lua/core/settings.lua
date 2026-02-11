@@ -8,7 +8,7 @@ opt.number = true -- affiche le numéro absolu de la ligne active lorsque que re
 -- tabs & indentation
 opt.tabstop = 4
 opt.shiftwidth = 4
-opt.autoindent = true -- on garde l'indentation actuelle à la prochaine ligne
+-- opt.autoindent = true -- on garde l'indentation actuelle à la prochaine ligne
 
 -- recherche
 opt.ignorecase = true -- ignore la casse quand on recherche
@@ -19,6 +19,7 @@ opt.hlsearch = true -- surlignage de toutes les occurences de la recherche en co
 opt.cursorline = true -- surlignage de la ligne active
 
 -- apparence
+opt.showmode = false
 
 -- termguicolors est nécessaire pour que les thèmes modernes fonctionnent
 opt.termguicolors = true
