@@ -55,6 +55,8 @@ return {
 			inactive_winbar = {},
 			extensions = {
 				"neo-tree",
+				"mason",
+				"lazy",
 			},
 		})
 	end,

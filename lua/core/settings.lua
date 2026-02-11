@@ -1,5 +1,7 @@
 local opt = vim.opt -- raccourci pour un peu plus de concision
 
+vim.lsp.set_log_level("off")
+vim.diagnostic.config({ virtual_text = true })
 vim.g.have_nerd_font = true
 
 -- numéros de ligne

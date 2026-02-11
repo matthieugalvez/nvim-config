@@ -9,7 +9,7 @@ return {
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 		-- Utile pour éditer les fichiers lua spécifiques à la config neovim
 		-- Notamment pour éviter le "Undefined global `vim`"
-		{ "folke/lazydev.nvim", opts = {} },
+		{ "folke/lazydev.nvim",                  opts = {} },
 	},
 	config = function()
 		-- Customize error signs
@@ -24,29 +24,29 @@ return {
 			},
 		})
 
-		-- Rust
-		vim.lsp.config("rust_analyzer", {
-			settings = {
-				["rust-analyzer"] = {
-					check = {
-						command = "clippy",
-					},
-					inlayHints = {
-						renderColons = true,
-						typeHints = {
-							enable = true,
-							hideClosureInitialization = false,
-							hideNamedConstructor = false,
-						},
-					},
-					diagnostics = {
-						enable = true,
-						styleLints = {
-							enable = true,
-						},
-					},
-				},
-			},
-		})
+		-- -- Rust
+		-- vim.lsp.config("rust_analyzer", {
+		-- 	settings = {
+		-- 		["rust-analyzer"] = {
+		-- 			check = {
+		-- 				command = "clippy",
+		-- 			},
+		-- 			inlayHints = {
+		-- 				renderColons = true,
+		-- 				typeHints = {
+		-- 					enable = true,
+		-- 					hideClosureInitialization = false,
+		-- 					hideNamedConstructor = false,
+		-- 				},
+		-- 			},
+		-- 			diagnostics = {
+		-- 				enable = true,
+		-- 				styleLints = {
+		-- 					enable = true,
+		-- 				},
+		-- 			},
+		-- 		},
+		-- 	},
+		-- })
 	end,
 }

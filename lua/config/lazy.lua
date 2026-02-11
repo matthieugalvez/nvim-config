@@ -14,8 +14,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	end
 end
 vim.opt.rtp:prepend(lazypath)
-vim.lsp.set_log_level("off")
-vim.diagnostic.config({ virtual_text = true })
 
 -- Configuration de lazy.nvim et importation du répertoire `plugins`
 require("lazy").setup({ { import = "plugins" }, { import = "plugins.lsp" } }, {
