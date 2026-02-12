@@ -10,7 +10,7 @@ return {
 			highlight = { "Whitespace", "Nontext" },
 		},
 		scope = {
-			highlight = { "Function", "Statement", "Conditional", "Repeat", "Label", "Keyword", "Exception" },
+			highlight = { "Function", "Label" },
 			show_start = true,
 			show_end = true,
 		},
