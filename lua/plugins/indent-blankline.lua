@@ -12,7 +12,7 @@ return {
 		scope = {
 			highlight = { "Function", "Label" },
 			show_start = true,
-			show_end = true,
+			show_end = false,
 		},
 		exclude = {
 			filetypes = {

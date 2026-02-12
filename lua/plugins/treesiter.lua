@@ -1,13 +1,11 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
-	tag = "v0.10.0",
 	lazy = false,
 	build = ":TSUpdate",
-	opt = {
-		highlight = { enable = true },
-		indent = { enable = true },
-		folds = { enable = true },
-		ensure_installed = {
+	config = function()
+		local treesitter = require("nvim-treesitter")
+
+		treesitter.install({
 			"asm",
 			"bash",
 			"c",
@@ -26,6 +24,6 @@ return {
 			"toml",
 			"yaml",
 			"zig",
-		},
-	},
+		})
+	end,
 }

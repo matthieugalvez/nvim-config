@@ -9,7 +9,7 @@ return {
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 		-- Utile pour éditer les fichiers lua spécifiques à la config neovim
 		-- Notamment pour éviter le "Undefined global `vim`"
-		{ "folke/lazydev.nvim",                  opts = {} },
+		{ "folke/lazydev.nvim", opts = {} },
 	},
 	config = function()
 		-- Customize error signs
