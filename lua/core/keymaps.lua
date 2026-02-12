@@ -1,5 +1,6 @@
 -- On définit notre touche leader sur espace
 vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
 -- Raccourci pour la fonction set
 local keymap = vim.keymap.set

@@ -10,12 +10,12 @@ opt.number = true -- affiche le numéro absolu de la ligne active lorsque que re
 -- tabs & indentation
 opt.tabstop = 4
 opt.shiftwidth = 4
--- opt.autoindent = true -- on garde l'indentation actuelle à la prochaine ligne
+opt.autoindent = true -- on garde l'indentation actuelle à la prochaine ligne
 
 -- recherche
 opt.ignorecase = true -- ignore la casse quand on recherche
-opt.smartcase = true -- sauf quand on fait une recherche avec des majuscules, on rebascule en sensible à la casse
-opt.hlsearch = true -- surlignage de toutes les occurences de la recherche en cours
+opt.smartcase = true  -- sauf quand on fait une recherche avec des majuscules, on rebascule en sensible à la casse
+opt.hlsearch = true   -- surlignage de toutes les occurences de la recherche en cours
 
 -- ligne du curseur
 opt.cursorline = true -- surlignage de la ligne active
@@ -26,7 +26,7 @@ opt.showmode = false
 -- termguicolors est nécessaire pour que les thèmes modernes fonctionnent
 opt.termguicolors = true
 opt.background = "dark" -- dark ou light en fonction de votre préférence
-opt.signcolumn = "yes" -- affiche une colonne en plus à gauche pour afficher les signes (évite de décaler le texte)
+opt.signcolumn = "yes"  -- affiche une colonne en plus à gauche pour afficher les signes (évite de décaler le texte)
 
 -- retour
 opt.backspace = "indent,eol,start" -- on autorise l'utilisation de retour quand on indente, à la fin de ligne ou au début
@@ -35,12 +35,12 @@ opt.backspace = "indent,eol,start" -- on autorise l'utilisation de retour quand 
 opt.clipboard = "unnamedplus" -- on utilise le presse papier du système par défaut
 
 -- split des fenêtres
-opt.splitright = true -- le split vertical d'une fenêtre s'affiche à droite
-opt.splitbelow = true -- le split horizontal d'une fenêtre s'affiche en bas
+opt.splitright = true     -- le split vertical d'une fenêtre s'affiche à droite
+opt.splitbelow = true     -- le split horizontal d'une fenêtre s'affiche en bas
 
-opt.swapfile = false -- on supprime le pénible fichier de swap
+opt.swapfile = false      -- on supprime le pénible fichier de swap
 
-opt.undofile = true -- on autorise l'undo à l'infini (même quand on revient sur un fichier qu'on avait fermé)
+opt.undofile = true       -- on autorise l'undo à l'infini (même quand on revient sur un fichier qu'on avait fermé)
 
 opt.iskeyword:append("-") -- on traite les mots avec des - comme un seul mot
 
