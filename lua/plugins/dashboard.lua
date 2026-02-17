@@ -16,6 +16,18 @@ return {
 					"╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝",
 					"",
 				},
+				shortcut = {
+					{
+						desc = "Lazy Update",
+						action = "Lazy update",
+						key = "l",
+					},
+					{
+						desc = "Mason Update",
+						action = "MasonUpdate",
+						key = "m",
+					},
+				},
 			},
 		})
 	end,
