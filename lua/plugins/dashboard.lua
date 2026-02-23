@@ -23,8 +23,8 @@ return {
 						key = "l",
 					},
 					{
-						desc = "Mason Update",
-						action = "MasonUpdate",
+						desc = "Mason",
+						action = "Mason",
 						key = "m",
 					},
 				},
