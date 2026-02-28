@@ -8,7 +8,7 @@ local keymap = vim.keymap.set
 keymap("n", "<leader>l", ":Lazy<CR>", { desc = "Lance lazy.nvim" })
 keymap("n", "<leader>m", ":Mason<CR>", { desc = "Lance Mason" })
 
-keymap("n", "<leader>nh", ":nohl<CR>", { desc = "Effacer le surlignage de la recherche" })
+keymap("n", "<leader>d", ":nohl<CR>", { desc = "Effacer le surlignage de la recherche" })
 
 -- Changement de fenêtre avec Ctrl + déplacement uniquement au lieu de Ctrl-w + déplacement
 keymap("n", "<C-Left>", "<C-w>h", { desc = "Déplace le curseur dans la fenêtre de gauche" })
