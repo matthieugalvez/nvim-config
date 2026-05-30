@@ -2,15 +2,13 @@ return {
 	"mason-org/mason.nvim",
 	dependencies = {
 		"mason-org/mason-lspconfig.nvim",
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
 	},
 	config = function()
-		-- import de mason
 		local mason = require("mason")
-
-		-- import de mason-lspconfig
 		local mason_lspconfig = require("mason-lspconfig")
+		local mason_tool_installer = require("mason-tool-installer")
 
-		-- Active mason et personnalise les icônes
 		mason.setup({
 			ui = {
 				icons = {
@@ -30,7 +28,18 @@ return {
 				"lua_ls",
 				"ruff",
 				"rust_analyzer",
+				"vtsls",
 				"zls",
+			},
+		})
+
+		mason_tool_installer.setup({
+			ensure_installed = {
+				"shfmt",
+				"clang-format",
+				"prettier",
+				"stylua",
+				"ruff",
 			},
 		})
 	end,
