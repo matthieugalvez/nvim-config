@@ -22,6 +22,7 @@ return {
 		mason_lspconfig.setup({
 			automatic_enable = true,
 			ensure_installed = {
+				"basedpyright",
 				"bashls",
 				"clangd",
 				"docker_language_server",
@@ -39,7 +40,6 @@ return {
 				"clang-format",
 				"prettier",
 				"stylua",
-				"ruff",
 			},
 		})
 	end,
