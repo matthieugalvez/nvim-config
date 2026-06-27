@@ -4,6 +4,8 @@ vim.lsp.log.set_level("off")
 vim.diagnostic.config({ virtual_text = true })
 vim.g.have_nerd_font = true
 
+opt.modeline = false
+
 -- numéros de ligne
 opt.number = true -- affiche le numéro absolu de la ligne active lorsque que relativenumber est activé
 
