@@ -22,13 +22,13 @@ return {
 		mason_lspconfig.setup({
 			automatic_enable = true,
 			ensure_installed = {
-				"basedpyright",
 				"bashls",
 				"clangd",
 				"docker_language_server",
 				"lua_ls",
 				"ruff",
 				"rust_analyzer",
+				"ty",
 				"vtsls",
 				"zls",
 			},
