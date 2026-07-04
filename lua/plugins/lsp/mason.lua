@@ -21,7 +21,11 @@ return {
 
 		mason_lspconfig.setup({
 			automatic_enable = true,
+		})
+
+		mason_tool_installer.setup({
 			ensure_installed = {
+				-- LSP
 				"bashls",
 				"biome",
 				"clangd",
@@ -32,11 +36,8 @@ return {
 				"taplo",
 				"ty",
 				"zls",
-			},
-		})
 
-		mason_tool_installer.setup({
-			ensure_installed = {
+				-- Formatters / Linters
 				"clang-format",
 				"dockerfmt",
 				"shellcheck",

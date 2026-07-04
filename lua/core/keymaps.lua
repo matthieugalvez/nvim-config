@@ -15,5 +15,3 @@ keymap("n", "<C-Left>", "<C-w>h", { desc = "Déplace le curseur dans la fenêtre
 keymap("n", "<C-Down>", "<C-w>j", { desc = "Déplace le curseur dans la fenêtre du bas" })
 keymap("n", "<C-Up>", "<C-w>k", { desc = "Déplace le curseur dans la fenêtre du haut" })
 keymap("n", "<C-Right>", "<C-w>l", { desc = "Déplace le curseur dans la fenêtre droite" })
-
-keymap("n", "<C-h>", ":Neotree toggle<CR>", { desc = "Toggle Neo-tree" })

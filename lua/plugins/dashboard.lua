@@ -23,8 +23,8 @@ return {
 						key = "l",
 					},
 					{
-						desc = "Mason",
-						action = "Mason",
+						desc = "Mason Update",
+						action = ":MasonToolsUpdate",
 						key = "m",
 					},
 				},
