@@ -23,5 +23,23 @@ return {
 				},
 			},
 		})
+
+		vim.lsp.config("clangd", {
+			cmd = {
+				"clangd",
+				"--clang-tidy",
+				"--enable-config",
+			},
+		})
+
+		vim.lsp.config("rust_analyzer", {
+			settings = {
+				["rust-analyzer"] = {
+					check = {
+						command = "clippy",
+					},
+				},
+			},
+		})
 	end,
 }

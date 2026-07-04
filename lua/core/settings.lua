@@ -1,6 +1,6 @@
 local opt = vim.opt -- raccourci pour un peu plus de concision
 
-vim.lsp.log.set_level("off")
+vim.lsp.log.set_level("error")
 vim.diagnostic.config({ virtual_text = true })
 vim.g.have_nerd_font = true
 
