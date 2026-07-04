@@ -23,22 +23,24 @@ return {
 			automatic_enable = true,
 			ensure_installed = {
 				"bashls",
+				"biome",
 				"clangd",
 				"docker_language_server",
 				"lua_ls",
 				"ruff",
 				"rust_analyzer",
+				"taplo",
 				"ty",
-				"vtsls",
 				"zls",
 			},
 		})
 
 		mason_tool_installer.setup({
 			ensure_installed = {
-				"shfmt",
 				"clang-format",
-				"prettier",
+				"dockerfmt",
+				"shellcheck",
+				"shfmt",
 				"stylua",
 			},
 		})
