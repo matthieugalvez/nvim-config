@@ -6,7 +6,7 @@ return {
 		-- avec les résultats des LSP
 		"hrsh7th/cmp-nvim-lsp",
 		-- Ajoute les « code actions » de type renommage de fichiers intelligent, etc
-		{ "antosha417/nvim-lsp-file-operations", config = true },
+		{ "Crysthamus/nvim-file-operations", config = true },
 		-- Utile pour éditer les fichiers lua spécifiques à la config neovim
 		-- Notamment pour éviter le "Undefined global `vim`"
 		{ "folke/lazydev.nvim", opts = {} },
