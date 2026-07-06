@@ -1,10 +1,8 @@
-local opt = vim.opt -- raccourci pour un peu plus de concision
-
 vim.lsp.log.set_level("error")
 vim.diagnostic.config({ virtual_text = true })
 vim.g.have_nerd_font = true
 
-opt.modeline = false
+local opt = vim.opt -- raccourci pour un peu plus de concision
 
 -- numéros de ligne
 opt.number = true -- affiche le numéro absolu de la ligne active lorsque que relativenumber est activé
@@ -24,6 +22,9 @@ opt.cursorline = true -- surlignage de la ligne active
 
 -- apparence
 opt.showmode = false
+opt.modeline = false
+opt.cmdheight = 0
+opt.shortmess:append("c")
 
 -- termguicolors est nécessaire pour que les thèmes modernes fonctionnent
 opt.termguicolors = true
@@ -49,6 +50,9 @@ opt.iskeyword:append("-") -- on traite les mots avec des - comme un seul mot
 -- affichage des caractères spéciaux
 opt.list = true
 opt.listchars = { nbsp = "␣", trail = "•", tab = "» " }
+
+-- opt.foldmethod = "expr"
+-- opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {

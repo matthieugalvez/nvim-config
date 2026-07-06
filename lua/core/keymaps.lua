@@ -5,13 +5,13 @@ vim.g.maplocalleader = "\\"
 -- Raccourci pour la fonction set
 local keymap = vim.keymap.set
 
-keymap("n", "<leader>l", ":Lazy<CR>", { desc = "Lance lazy.nvim" })
-keymap("n", "<leader>m", ":Mason<CR>", { desc = "Lance Mason" })
+keymap("n", "<leader>l", ":Lazy<CR>", { desc = "Lazy" })
+keymap("n", "<leader>m", ":Mason<CR>", { desc = "Mason" })
 
-keymap("n", "<leader>d", ":nohl<CR>", { desc = "Effacer le surlignage de la recherche" })
+keymap("n", "<leader>d", ":nohl<CR>", { desc = "Reset highlight" })
 
 -- Changement de fenêtre avec Ctrl + déplacement uniquement au lieu de Ctrl-w + déplacement
-keymap("n", "<C-Left>", "<C-w>h", { desc = "Déplace le curseur dans la fenêtre de gauche" })
-keymap("n", "<C-Down>", "<C-w>j", { desc = "Déplace le curseur dans la fenêtre du bas" })
-keymap("n", "<C-Up>", "<C-w>k", { desc = "Déplace le curseur dans la fenêtre du haut" })
-keymap("n", "<C-Right>", "<C-w>l", { desc = "Déplace le curseur dans la fenêtre droite" })
+keymap("n", "<C-Left>", "<C-w>h", { desc = "Move to the window to the left" })
+keymap("n", "<C-Right>", "<C-w>l", { desc = "Move to the window to the right" })
+keymap("n", "<C-Down>", "<C-w>j", { desc = "Move to the window below" })
+keymap("n", "<C-Up>", "<C-w>k", { desc = "Move to the window above" })

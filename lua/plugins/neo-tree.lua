@@ -1,13 +1,6 @@
 return {
 	{
 		"nvim-neo-tree/neo-tree.nvim",
-		keys = {
-			{
-				"<C-h>",
-				"<cmd>Neotree toggle<CR>",
-				desc = "Toggle Neo-tree",
-			},
-		},
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"MunifTanjim/nui.nvim",
@@ -15,6 +8,14 @@ return {
 			{
 				"Crysthamus/nvim-file-operations",
 				config = true,
+			},
+		},
+
+		keys = {
+			{
+				"<C-h>",
+				"<cmd>Neotree toggle<CR>",
+				desc = "Toggle Neo-tree",
 			},
 		},
 	},

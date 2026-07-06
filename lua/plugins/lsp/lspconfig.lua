@@ -11,6 +11,7 @@ return {
 		-- Notamment pour éviter le "Undefined global `vim`"
 		{ "folke/lazydev.nvim", opts = {} },
 	},
+
 	config = function()
 		-- Customize error signs
 		vim.diagnostic.config({

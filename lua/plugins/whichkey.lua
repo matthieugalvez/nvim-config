@@ -4,14 +4,16 @@ return {
 		"nvim-tree/nvim-web-devicons",
 	},
 	event = "VeryLazy",
-	opts = {},
+
 	keys = {
 		{
 			"<leader>?",
 			function()
 				require("which-key").show({ global = true })
 			end,
-			desc = "Buffer Local Keymaps (which-key)",
+			desc = "Show Keymaps",
 		},
 	},
+
+	opts = {},
 }

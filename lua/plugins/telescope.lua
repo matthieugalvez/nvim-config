@@ -1,26 +1,63 @@
 return {
 	"nvim-telescope/telescope.nvim",
 	dependencies = {
+		"nvim-lua/plenary.nvim",
+		"nvim-tree/nvim-web-devicons",
+		"nvim-telescope/telescope-ui-select.nvim",
 		{
-			"nvim-telescope/telescope-ui-select.nvim",
-			"nvim-lua/plenary.nvim",
-			{
-				"nvim-telescope/telescope-fzf-native.nvim",
-				build = "make",
-			},
-			"nvim-tree/nvim-web-devicons",
+			"nvim-telescope/telescope-fzf-native.nvim",
+			build = "make",
 		},
 	},
-	config = function()
-		local telescope = require("telescope")
-		local actions = require("telescope.actions")
 
-		telescope.setup({
+	keys = function()
+		local builtin = require("telescope.builtin")
+
+		return {
+			{
+				"<leader>tf",
+				function()
+					builtin.find_files()
+				end,
+				desc = "Find files",
+			},
+			{
+				"<leader>tg",
+				function()
+					builtin.live_grep()
+				end,
+				desc = "Live grep",
+			},
+			{
+				"<leader>tb",
+				function()
+					builtin.buffers()
+				end,
+				desc = "Find buffers",
+			},
+			{
+				"<leader>tx",
+				function()
+					builtin.grep_string()
+				end,
+				desc = "Grep word under cursor",
+			},
+		}
+	end,
+
+	opts = function()
+		local actions = require("telescope.actions")
+		local themes = require("telescope.themes")
+
+		return {
 			defaults = {
 				prompt_prefix = " ",
 				selection_caret = " ",
 				path_display = { "smart" },
-				file_ignore_patterns = { ".git/", "node_modules" },
+				file_ignore_patterns = {
+					".git/",
+					"node_modules",
+				},
 
 				mappings = {
 					i = {
@@ -29,36 +66,18 @@ return {
 					},
 				},
 			},
-		})
 
+			extensions = {
+				ui_select = themes.get_dropdown(),
+			},
+		}
+	end,
+
+	config = function(_, opts)
+		local telescope = require("telescope")
+
+		telescope.setup(opts)
 		telescope.load_extension("fzf")
-
-		-- set keymaps
-		local keymap = vim.keymap -- for conciseness
-
-		keymap.set(
-			"n",
-			"<leader>tf",
-			"<cmd>Telescope find_files<cr>",
-			{ desc = "Recherche de chaînes de caractères dans les noms de fichiers" }
-		)
-		keymap.set(
-			"n",
-			"<leader>tg",
-			"<cmd>Telescope live_grep<cr>",
-			{ desc = "Recherche de chaînes de caractères dans le contenu des fichiers" }
-		)
-		keymap.set(
-			"n",
-			"<leader>tb",
-			"<cmd>Telescope buffers<cr>",
-			{ desc = "Recherche de chaînes de caractères dans les noms de buffers" }
-		)
-		keymap.set(
-			"n",
-			"<leader>tx",
-			"<cmd>Telescope grep_string<cr>",
-			{ desc = "Recherche de la chaîne de caractères sous le curseur" }
-		)
+		telescope.load_extension("ui-select")
 	end,
 }

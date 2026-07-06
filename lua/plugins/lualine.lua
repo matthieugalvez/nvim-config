@@ -1,12 +1,13 @@
 return {
 	"nvim-lualine/lualine.nvim",
-	dependencies = { "nvim-tree/nvim-web-devicons" },
-	config = function()
-		local lualine = require("lualine")
-		local lazy_status = require("lazy.status") -- affiche le nombre de mise à jour plugins lazy dans la barre
+	dependencies = {
+		"nvim-tree/nvim-web-devicons",
+	},
 
-		-- configuration de lualine
-		lualine.setup({
+	opts = function()
+		local lazy_status = require("lazy.status")
+
+		return {
 			options = {
 				icons_enabled = true,
 				theme = "auto",
@@ -18,30 +19,34 @@ return {
 				},
 				ignore_focus = {},
 				always_divide_middle = true,
-				globalstatus = false,
+				globalstatus = true,
 				refresh = {
 					statusline = 1000,
 					tabline = 1000,
 					winbar = 1000,
 				},
 			},
+
 			sections = {
 				lualine_a = { "mode" },
 				lualine_b = { "branch", "diff", "diagnostics" },
-				lualine_c = { { "filename", path = 1 } },
+				lualine_c = {
+					{ "filename", path = 1 },
+				},
 				lualine_x = {
 					{
 						lazy_status.updates,
 						cond = lazy_status.has_updates,
-						color = { fg = "#ff9e64" },
+						color = "DiagnosticWarn",
 					},
-					{ "encoding" },
-					{ "fileformat" },
-					{ "filetype" },
+					"encoding",
+					"fileformat",
+					"filetype",
 				},
 				lualine_y = { "progress" },
 				lualine_z = { "location" },
 			},
+
 			inactive_sections = {
 				lualine_a = {},
 				lualine_b = {},
@@ -50,14 +55,12 @@ return {
 				lualine_y = {},
 				lualine_z = {},
 			},
-			tabline = {},
-			winbar = {},
-			inactive_winbar = {},
+
 			extensions = {
 				"neo-tree",
 				"mason",
 				"lazy",
 			},
-		})
+		}
 	end,
 }
