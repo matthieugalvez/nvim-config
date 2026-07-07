@@ -10,7 +10,7 @@ return {
 				config = true,
 			},
 		},
-		cmd = "NeoTree",
+		cmd = "Neotree",
 
 		keys = {
 			{

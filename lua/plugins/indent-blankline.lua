@@ -11,7 +11,6 @@ return {
 			highlight = { "Whitespace", "Nontext" },
 		},
 		scope = {
-			-- highlight = { "Function", "Structure", "Typedef" },
 			show_start = true,
 			show_end = true,
 			show_exact_scope = true,
