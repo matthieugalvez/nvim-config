@@ -19,6 +19,14 @@ return {
 				desc = "Toggle Neo-tree",
 			},
 		},
+
+		opts = {
+			window = {
+				mappings = {
+					["<CR>"] = "open_with_window_picker",
+				},
+			},
+		},
 	},
 
 	{

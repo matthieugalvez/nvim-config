@@ -4,6 +4,7 @@ return {
 		"mason-org/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 	},
+	lazy = false,
 
 	keys = {
 		{
