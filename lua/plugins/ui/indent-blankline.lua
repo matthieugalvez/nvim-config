@@ -12,8 +12,6 @@ return {
 			highlight = { "Whitespace", "NonText" },
 		},
 		scope = {
-			show_start = true,
-			show_end = true,
 			show_exact_scope = true,
 		},
 		exclude = {

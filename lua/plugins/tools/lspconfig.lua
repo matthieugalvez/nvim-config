@@ -4,7 +4,11 @@ return {
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
 		{ "Crysthamus/nvim-file-operations", opts = {} },
-		{ "folke/lazydev.nvim", opts = {} },
+		{
+			"folke/lazydev.nvim",
+			ft = "lua",
+			opts = {},
+		},
 	},
 
 	config = function()
@@ -36,5 +40,7 @@ return {
 				},
 			},
 		})
+
+		require("mason-lspconfig").setup()
 	end,
 }

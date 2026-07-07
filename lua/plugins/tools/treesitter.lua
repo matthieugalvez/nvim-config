@@ -5,7 +5,7 @@ return {
 	keys = {
 		{
 			"<leader>s",
-			":TSManager<CR>",
+			"<cmd>TSManager<CR>",
 			desc = "Tree-sitter Manager",
 		},
 	},

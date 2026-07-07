@@ -6,6 +6,28 @@ return {
 			"MunifTanjim/nui.nvim",
 			"nvim-tree/nvim-web-devicons",
 			{ "Crysthamus/nvim-file-operations", opts = {} },
+			{
+				"s1n7ax/nvim-window-picker",
+
+				opts = {
+					filter_rules = {
+						include_current_win = false,
+						autoselect_one = true,
+
+						bo = {
+							filetype = {
+								"neo-tree",
+								"neo-tree-popup",
+								"notify",
+							},
+							buftype = {
+								"terminal",
+								"quickfix",
+							},
+						},
+					},
+				},
+			},
 		},
 		cmd = "Neotree",
 
@@ -21,29 +43,6 @@ return {
 			window = {
 				mappings = {
 					["<CR>"] = "open_with_window_picker",
-				},
-			},
-		},
-	},
-
-	{
-		"s1n7ax/nvim-window-picker",
-
-		opts = {
-			filter_rules = {
-				include_current_win = false,
-				autoselect_one = true,
-
-				bo = {
-					filetype = {
-						"neo-tree",
-						"neo-tree-popup",
-						"notify",
-					},
-					buftype = {
-						"terminal",
-						"quickfix",
-					},
 				},
 			},
 		},

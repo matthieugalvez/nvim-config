@@ -9,7 +9,7 @@ return {
 	keys = {
 		{
 			"<leader>m",
-			":Mason<CR>",
+			"<cmd>Mason<CR>",
 			desc = "Mason",
 		},
 	},
@@ -26,21 +26,22 @@ return {
 
 	config = function(_, opts)
 		require("mason").setup(opts)
-		require("mason-lspconfig").setup()
 
 		require("mason-tool-installer").setup({
+			run_on_start = true,
+			debounce_hours = 24,
 			ensure_installed = {
 				-- All-in-ones
 				"biome",
 				"ruff",
-				"rust_analyzer",
+				"rust-analyzer",
 				"taplo",
 
 				-- LSPs
-				"bashls",
+				"bash-language-server",
 				"clangd",
-				"docker_language_server",
-				"lua_ls",
+				"docker-language-server",
+				"lua-language-server",
 				"ty",
 				"zls",
 
