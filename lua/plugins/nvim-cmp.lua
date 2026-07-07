@@ -5,46 +5,49 @@ return {
 			"L3MON4D3/LuaSnip",
 			build = "make install_jsregexp",
 		},
-		"saadparwaiz1/cmp_luasnip",
+		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-nvim-lsp",
+		"hrsh7th/cmp-path",
 		"rafamadriz/friendly-snippets",
+		"saadparwaiz1/cmp_luasnip",
 	},
 
-	config = function()
+	opts = function()
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
-		require("luasnip.loaders.from_vscode").lazy_load()
-		luasnip.config.setup({})
 
-		cmp.setup({
+		require("luasnip.loaders.from_vscode").lazy_load()
+		luasnip.config.setup()
+
+		return {
 			snippet = {
 				expand = function(args)
 					luasnip.lsp_expand(args.body)
 				end,
 			},
+
 			mapping = cmp.mapping.preset.insert({
 				["<Down>"] = cmp.mapping.select_next_item(),
 				["<Up>"] = cmp.mapping.select_prev_item(),
-				["<C-Space>"] = cmp.mapping.complete({}),
-				["<C-e>"] = cmp.mapping.abort(),
+
+				["<Esc>"] = cmp.mapping.abort(),
 				["<CR>"] = cmp.mapping.confirm({
-					behavior = cmp.ConfirmBehavior.insert,
+					behavior = cmp.ConfirmBehavior.Insert,
 					select = false,
 				}),
-				["<S-Tab>"] = cmp.mapping(function(fallback)
-					if cmp.visible() then
-						cmp.select_next_item()
-					elseif luasnip.expand_or_locally_jumpable() then
-						luasnip.expand_or_jump()
-					else
-						fallback()
-					end
-				end, { "i", "s" }),
 			}),
-			sources = {
+
+			sources = cmp.config.sources({
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
-			},
-		})
+				{ name = "path" },
+			}, {
+				{ name = "buffer" },
+			}),
+		}
+	end,
+
+	config = function(_, opts)
+		require("cmp").setup(opts)
 	end,
 }

@@ -4,7 +4,6 @@ return {
 	priority = 1000,
 	opts = {},
 	config = function()
-		-- chargement du thème
-		vim.cmd([[colorscheme kanagawa]])
+		vim.cmd.colorscheme("kanagawa")
 	end,
 }

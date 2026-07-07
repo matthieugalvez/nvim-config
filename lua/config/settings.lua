@@ -1,6 +1,17 @@
 vim.lsp.log.set_level("error")
-vim.diagnostic.config({ virtual_text = true })
 vim.g.have_nerd_font = true
+
+vim.diagnostic.config({
+	signs = {
+		virtual_text = true,
+		text = {
+			[vim.diagnostic.severity.ERROR] = "",
+			[vim.diagnostic.severity.WARN] = "",
+			[vim.diagnostic.severity.INFO] = "",
+			[vim.diagnostic.severity.HINT] = "󰌵",
+		},
+	},
+})
 
 local opt = vim.opt -- raccourci pour un peu plus de concision
 
@@ -50,9 +61,6 @@ opt.iskeyword:append("-") -- on traite les mots avec des - comme un seul mot
 -- affichage des caractères spéciaux
 opt.list = true
 opt.listchars = { nbsp = "␣", trail = "•", tab = "» " }
-
--- opt.foldmethod = "expr"
--- opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {

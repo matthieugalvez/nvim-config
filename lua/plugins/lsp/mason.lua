@@ -5,26 +5,32 @@ return {
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 	},
 
-	config = function()
-		local mason = require("mason")
-		local mason_lspconfig = require("mason-lspconfig")
-		local mason_tool_installer = require("mason-tool-installer")
+	keys = {
+		{
+			"<leader>m",
+			":Mason<CR>",
+			desc = "Mason",
+		},
+	},
 
-		mason.setup({
-			ui = {
-				icons = {
-					package_installed = "✓",
-					package_pending = "➜",
-					package_uninstalled = "✗",
-				},
+	opts = {
+		ui = {
+			icons = {
+				package_installed = "󰄳",
+				package_pending = "󰔟",
+				package_uninstalled = "󰚌",
 			},
-		})
+		},
+	},
 
-		mason_lspconfig.setup({
+	config = function(_, opts)
+		require("mason").setup(opts)
+
+		require("mason-lspconfig").setup({
 			automatic_enable = true,
 		})
 
-		mason_tool_installer.setup({
+		require("mason-tool-installer").setup({
 			ensure_installed = {
 				-- LSP
 				"bashls",
