@@ -1,7 +1,7 @@
 return {
 	"j-hui/fidget.nvim",
 	version = "*",
-	event = { "LspAttach" },
+	event = { "BufReadPre", "BufNewFile" },
 
 	opts = {
 		notification = {

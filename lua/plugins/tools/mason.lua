@@ -1,7 +1,6 @@
 return {
 	"mason-org/mason.nvim",
 	dependencies = {
-		"mason-org/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 	},
 	lazy = false,
@@ -30,6 +29,10 @@ return {
 		require("mason-tool-installer").setup({
 			run_on_start = true,
 			debounce_hours = 24,
+			integrations = {
+				["mason-lspconfig"] = false,
+			},
+
 			ensure_installed = {
 				-- All-in-ones
 				"biome",

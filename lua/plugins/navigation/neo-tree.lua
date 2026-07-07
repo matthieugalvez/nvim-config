@@ -1,6 +1,7 @@
 return {
 	{
 		"nvim-neo-tree/neo-tree.nvim",
+		branch = "v3.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"MunifTanjim/nui.nvim",
@@ -8,6 +9,7 @@ return {
 			{ "Crysthamus/nvim-file-operations", opts = {} },
 			{
 				"s1n7ax/nvim-window-picker",
+				version = "2.*",
 
 				opts = {
 					filter_rules = {
