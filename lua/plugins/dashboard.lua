@@ -29,6 +29,11 @@ return {
 					action = "MasonToolsUpdate",
 					key = "m",
 				},
+				{
+					desc = "Tree-sitter Update",
+					action = "TSUpdate!",
+					key = "t",
+				},
 			},
 		},
 	},

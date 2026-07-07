@@ -42,6 +42,7 @@ return {
 				python = { "ruff_fix", "ruff_format" },
 				rust = { "rustfmt" },
 				scss = { "biome" },
+				sh = { "shellcheck", "shfmt" },
 				toml = { "taplo" },
 				typescript = { "biome" },
 				typescriptreact = { "biome" },
