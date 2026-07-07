@@ -1,5 +1,6 @@
 return {
 	"hrsh7th/nvim-cmp",
+	event = "InsertEnter",
 	dependencies = {
 		{
 			"L3MON4D3/LuaSnip",
@@ -30,7 +31,7 @@ return {
 				["<Down>"] = cmp.mapping.select_next_item(),
 				["<Up>"] = cmp.mapping.select_prev_item(),
 
-				["<Esc>"] = cmp.mapping.abort(),
+				["<Tab>"] = cmp.mapping.abort(),
 				["<CR>"] = cmp.mapping.confirm({
 					behavior = cmp.ConfirmBehavior.Insert,
 					select = false,

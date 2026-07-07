@@ -26,29 +26,30 @@ return {
 
 	config = function(_, opts)
 		require("mason").setup(opts)
-
-		require("mason-lspconfig").setup({
-			automatic_enable = true,
-		})
+		require("mason-lspconfig").setup()
 
 		require("mason-tool-installer").setup({
 			ensure_installed = {
-				-- LSP
-				"bashls",
+				-- All-in-ones
 				"biome",
-				"clangd",
-				"docker_language_server",
-				"lua_ls",
 				"ruff",
 				"rust_analyzer",
 				"taplo",
+
+				-- LSPs
+				"bashls",
+				"clangd",
+				"docker_language_server",
+				"lua_ls",
 				"ty",
 				"zls",
 
-				-- Formatters / Linters
+				-- Linters
+				"shellcheck",
+
+				-- Formatters
 				"clang-format",
 				"dockerfmt",
-				"shellcheck",
 				"shfmt",
 				"stylua",
 			},

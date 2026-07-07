@@ -3,12 +3,17 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
-		{ "Crysthamus/nvim-file-operations", config = true },
+		{ "Crysthamus/nvim-file-operations", opts = {} },
 		{ "folke/lazydev.nvim", opts = {} },
 	},
 
 	config = function()
-		local capabilities = require("cmp_nvim_lsp").default_capabilities()
+		local capabilities = vim.tbl_deep_extend(
+			"force",
+			vim.lsp.protocol.make_client_capabilities(),
+			require("cmp_nvim_lsp").default_capabilities(),
+			require("nvim-file-operations.config").default_capabilities()
+		)
 
 		vim.lsp.config("*", {
 			capabilities = capabilities,

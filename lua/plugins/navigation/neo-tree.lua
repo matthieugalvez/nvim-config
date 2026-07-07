@@ -5,10 +5,7 @@ return {
 			"nvim-lua/plenary.nvim",
 			"MunifTanjim/nui.nvim",
 			"nvim-tree/nvim-web-devicons",
-			{
-				"Crysthamus/nvim-file-operations",
-				config = true,
-			},
+			{ "Crysthamus/nvim-file-operations", opts = {} },
 		},
 		cmd = "Neotree",
 

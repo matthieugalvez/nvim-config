@@ -4,7 +4,7 @@ return {
 	opts = {
 		notification = {
 			window = {
-				avoid = { "NvimTree" },
+				avoid = { "neo-tree" },
 			},
 		},
 	},

@@ -1,6 +1,7 @@
 return {
 	"stevearc/conform.nvim",
-	event = { "BufReadPre", "BufNewFile" },
+	event = "BufWritePre",
+	cmd = "ConformInfo",
 
 	keys = {
 		{
@@ -12,12 +13,14 @@ return {
 					timeout_ms = 1000,
 				})
 			end,
-			desc = "Format buffer",
+			mode = { "n", "v" },
+			desc = "Format buffer or selection",
 		},
 	},
 
 	opts = function()
 		local config_path = vim.fn.stdpath("config") .. "/config"
+		local ruff_config = config_path .. "/ruff/ruff.toml"
 
 		return {
 			format_on_save = {
@@ -50,15 +53,22 @@ return {
 			},
 
 			formatters = {
-				ruff_format = {
-					args = {
+				ruff_fix = {
+					prepend_args = {
 						"--config",
-						config_path .. "/ruff/ruff.toml",
+						ruff_config,
+					},
+				},
+
+				ruff_format = {
+					prepend_args = {
+						"--config",
+						ruff_config,
 					},
 				},
 
 				["clang-format"] = {
-					args = {
+					prepend_args = {
 						"--style=file:" .. config_path .. "/clang-format/.clang-format",
 					},
 				},

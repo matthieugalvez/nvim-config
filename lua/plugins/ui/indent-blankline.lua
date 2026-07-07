@@ -1,6 +1,7 @@
 return {
 	"lukas-reineke/indent-blankline.nvim",
 	main = "ibl",
+	event = { "BufReadPre", "BufNewFile" },
 
 	opts = {
 		indent = {
@@ -8,7 +9,7 @@ return {
 			tab_char = "│",
 		},
 		whitespace = {
-			highlight = { "Whitespace", "Nontext" },
+			highlight = { "Whitespace", "NonText" },
 		},
 		scope = {
 			show_start = true,
@@ -19,7 +20,6 @@ return {
 			filetypes = {
 				"dashboard",
 				"lspinfo",
-				"packer",
 				"checkhealth",
 				"help",
 				"man",

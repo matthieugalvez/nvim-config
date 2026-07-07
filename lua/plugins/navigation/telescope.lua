@@ -9,41 +9,38 @@ return {
 			build = "make",
 		},
 	},
+	cmd = "Telescope",
 
-	keys = function()
-		local builtin = require("telescope.builtin")
-
-		return {
-			{
-				"<leader>tf",
-				function()
-					builtin.find_files()
-				end,
-				desc = "Find files",
-			},
-			{
-				"<leader>tg",
-				function()
-					builtin.live_grep()
-				end,
-				desc = "Live grep",
-			},
-			{
-				"<leader>tb",
-				function()
-					builtin.buffers()
-				end,
-				desc = "Find buffers",
-			},
-			{
-				"<leader>tx",
-				function()
-					builtin.grep_string()
-				end,
-				desc = "Grep word under cursor",
-			},
-		}
-	end,
+	keys = {
+		{
+			"<leader>tf",
+			function()
+				require("telescope.builtin").find_files()
+			end,
+			desc = "Find files",
+		},
+		{
+			"<leader>tg",
+			function()
+				require("telescope.builtin").live_grep()
+			end,
+			desc = "Live grep",
+		},
+		{
+			"<leader>tb",
+			function()
+				require("telescope.builtin").buffers()
+			end,
+			desc = "Find buffers",
+		},
+		{
+			"<leader>tx",
+			function()
+				require("telescope.builtin").grep_string()
+			end,
+			desc = "Grep word under cursor",
+		},
+	},
 
 	opts = function()
 		local actions = require("telescope.actions")
@@ -55,8 +52,8 @@ return {
 				selection_caret = " ",
 				path_display = { "smart" },
 				file_ignore_patterns = {
-					".git/",
-					"node_modules",
+					"%.git/",
+					"node_modules/",
 				},
 
 				mappings = {

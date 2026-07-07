@@ -4,7 +4,6 @@ vim.lsp.log.set_level("error")
 
 vim.diagnostic.config({
 	virtual_text = true,
-	virtual_lines = false,
 	severity_sort = true,
 
 	signs = {
