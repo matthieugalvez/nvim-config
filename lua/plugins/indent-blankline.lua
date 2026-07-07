@@ -11,9 +11,10 @@ return {
 			highlight = { "Whitespace", "Nontext" },
 		},
 		scope = {
-			highlight = { "Function", "Label" },
+			-- highlight = { "Function", "Structure", "Typedef" },
 			show_start = true,
-			show_end = false,
+			show_end = true,
+			show_exact_scope = true,
 		},
 		exclude = {
 			filetypes = {

@@ -4,6 +4,7 @@ vim.g.have_nerd_font = true
 vim.diagnostic.config({
 	signs = {
 		virtual_text = true,
+		virtual_lines = true,
 		text = {
 			[vim.diagnostic.severity.ERROR] = "",
 			[vim.diagnostic.severity.WARN] = "",
