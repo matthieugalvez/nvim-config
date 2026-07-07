@@ -5,7 +5,7 @@ return {
 		"nvim-tree/nvim-web-devicons",
 	},
 
-	opt = {
+	opts = {
 		config = {
 			header = {
 				"",
