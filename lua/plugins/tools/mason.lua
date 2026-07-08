@@ -37,7 +37,6 @@ return {
 				-- All-in-ones
 				"biome",
 				"ruff",
-				"rust-analyzer",
 				"taplo",
 
 				-- LSPs

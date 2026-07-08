@@ -36,6 +36,7 @@ return {
 					},
 				},
 			})
+			vim.lsp.enable("rust_analyzer")
 
 			require("mason-lspconfig").setup()
 		end,
