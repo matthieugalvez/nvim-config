@@ -13,6 +13,7 @@ return {
 				"neo-tree",
 			},
 		},
+
 		static = {
 			char = "╎",
 		},
@@ -26,7 +27,7 @@ return {
 			underline = {
 				enabled = true,
 				highlights = {
-					"BlinkIndentBlueUnderLine",
+					"BlinkIndentBlueUnderline",
 				},
 			},
 		},

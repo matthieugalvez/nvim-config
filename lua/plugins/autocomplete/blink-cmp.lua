@@ -9,20 +9,25 @@ return {
 	---@module "blink.cmp"
 	---@type blink.cmp.Config
 	opts = {
-		keymap = {
-			preset = "none",
-			["<Down>"] = { "select_next", "fallback" },
-			["<Up>"] = { "select_prev", "fallback" },
-			["<CR>"] = { "accept", "fallback" },
-			["<Tab>"] = { "hide", "fallback" },
-		},
-
 		completion = {
 			list = {
 				selection = {
 					preselect = false,
 					auto_insert = false,
 				},
+			},
+		},
+
+		keymap = {
+			["<CR>"] = { "accept", "fallback" },
+			["<Tab>"] = { "hide", "fallback" },
+		},
+
+		signature = {
+			enabled = true,
+			trigger = {
+				show_on_keyword = true,
+				show_on_insert = true,
 			},
 		},
 
