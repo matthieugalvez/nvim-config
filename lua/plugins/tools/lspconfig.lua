@@ -4,15 +4,14 @@ return {
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			"mason-org/mason-lspconfig.nvim",
-			"hrsh7th/cmp-nvim-lsp",
+			"saghen/blink.cmp",
 			{ "Crysthamus/nvim-file-operations", opts = {} },
 		},
 
 		config = function()
 			local capabilities = vim.tbl_deep_extend(
 				"force",
-				vim.lsp.protocol.make_client_capabilities(),
-				require("cmp_nvim_lsp").default_capabilities(),
+				require("blink.cmp").get_lsp_capabilities(),
 				require("nvim-file-operations.config").default_capabilities()
 			)
 

@@ -33,7 +33,6 @@ opt.cursorline = true
 opt.showmode = false
 opt.modeline = false
 opt.cmdheight = 0
-opt.shortmess:append("c")
 opt.termguicolors = true
 opt.background = "dark"
 opt.signcolumn = "yes"
@@ -47,9 +46,6 @@ opt.splitbelow = true
 
 -- Historique d’annulation
 opt.undofile = true
-
--- Complétion
-opt.completeopt = { "menu", "menuone", "noselect" }
 
 -- Caractères invisibles
 opt.list = true
