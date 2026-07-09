@@ -90,7 +90,7 @@ ifeq (${UNAME_S},Linux)
 else ifeq (${UNAME_S},Darwin)
 	@case "${NVIM_DIR}" in \
 		""|"${HOME}"|*/) \
-			printf "${RED}NVIM_DIR dangereux : ${NVIM_DIR}${NLINE}" >&2; \
+			printf "${RED}NVIM_DIR dangereux : %s${NLINE}" "${NVIM_DIR}" >&2; \
 			exit 1; \
 			;; \
 	esac
@@ -103,6 +103,7 @@ else ifeq (${UNAME_S},Darwin)
 	@tar -xzf "${NVIM_DIR}.tar.gz.tmp" \
 		--strip-components=1 \
 		-C "${NVIM_DIR}.tmp"
+	@test -x "${NVIM_DIR}.tmp/bin/nvim"
 	@rm -f "${NVIM_DIR}.tar.gz.tmp"
 	@rm -rf "${NVIM_DIR}"
 	@mv "${NVIM_DIR}.tmp" "${NVIM_DIR}"
