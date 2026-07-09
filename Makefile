@@ -5,11 +5,19 @@ NVIM_APPIMAGE_URL := https://github.com/neovim/neovim/releases/latest/download/n
 NVM_DIR ?= ${HOME}/.nvm
 NVM_INSTALL_URL := https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.5/install.sh
 
+RESET	=	\033[0m
+NLINE	=	${RESET}\033[0K\n
+BLINE	=	${RESET}\033[0K\r
+GREEN	=	\033[32m
+YELLOW	=	\033[33m
+BLUE	=	\033[34m
+RED		=	\033[31m
+
 all: check-nvim  check-dependencies
 
 check-nvim:
 	@if [ ! -x "${NVIM}" ]; then \
-		echo "Neovim n'est pas installé"; \
+		printf "${YELLOW}Neovim n'est pas installé${NLINE}"; \
 		${MAKE} --no-print-directory get-nvim; \
 	else \
 		${MAKE} --no-print-directory check-version; \
@@ -22,36 +30,43 @@ check-version:
 		| sed -n 's/.*"tag_name"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' \
 	); \
 	if [ -z "$$installed_version" ] || [ -z "$$latest_version" ]; then \
-		echo "Impossible de déterminer la version de Neovim" >&2; \
+		printf "${RED}Impossible de déterminer la version de Neovim${NLINE}" >&2; \
 		exit 1; \
 	fi; \
-	printf "Version installée : %s\n" "$$installed_version"; \
-	printf "Dernière stable   : %s\n" "$$latest_version"; \
+	printf "${BLUE}Version installée : %s${NLINE}" "$$installed_version"; \
+	printf "${BLUE}Dernière stable   : %s${NLINE}" "$$latest_version"; \
 	if [ "$$installed_version" = "$$latest_version" ]; then \
-		echo "Neovim est à jour"; \
+		printf "${GREEN}Neovim est à jour${NLINE}"; \
 	else \
-		echo "Une mise à jour de Neovim est disponible"; \
+		printf "${BLUE}Une mise à jour de Neovim est disponible${NLINE}"; \
 		${MAKE} --no-print-directory get-nvim; \
 	fi
 
 get-nvim:
+	@printf "${BLUE}installation de Neovim...${BLINE}"
 	@mkdir -p "$$(dirname "${NVIM}")"
-	@curl -fL -o "${NVIM}.tmp" "${NVIM_APPIMAGE_URL}"
+	@curl -fLsS -o "${NVIM}.tmp" "${NVIM_APPIMAGE_URL}"
 	@chmod u+x "${NVIM}.tmp"
 	@mv "${NVIM}.tmp" "${NVIM}"
-	@echo "Neovim mis à jour avec succès"
+	@printf "${GREEN}Neovim OK${NLINE}"
 
 check-dependencies: check-rust check-node
 	@export PATH="${HOME}/.cargo/bin:$$PATH"; \
-	fd --version >/dev/null 2>&1 || \
-	cargo install --locked fd-find
+	if ! fd --version >/dev/null 2>&1; then \
+		printf "${BLUE}Installation de fd-find...${BLINE}"; \
+		cargo -q install --locked fd-find; \
+	fi
 	@export PATH="${HOME}/.cargo/bin:$$PATH"; \
-	rg --version >/dev/null 2>&1 || \
-	cargo install --locked ripgrep
+	if ! rg --version >/dev/null 2>&1; then \
+		printf "${BLUE}Installation de ripgrep...${BLINE}"; \
+		cargo -q install --locked ripgrep; \
+	fi
 	@export PATH="${HOME}/.cargo/bin:$$PATH"; \
-	tree-sitter --version >/dev/null 2>&1 || \
-	cargo install --locked tree-sitter-cli
-	@echo "Dépendances OK"
+	if ! tree-sitter --version >/dev/null 2>&1; then \
+		printf "${BLUE}Installation de tree-sitter-cli...${BLINE}"; \
+		cargo -q install --locked tree-sitter-cli; \
+	fi
+	@printf "${GREEN}Dépendances OK${NLINE}"
 
 check-rust:
 	@rustup --version >/dev/null 2>&1 && \
@@ -63,12 +78,13 @@ check-rust:
 	${MAKE} --no-print-directory get-rust
 
 get-rust:
+	@printf "${BLUE}installation des composants Rust...${BLINE}"
 	@rustup --version >/dev/null 2>&1 || \
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | \
-	sh -s -- -y
+	sh -s -- -y --profile minimal
 	@export PATH="${HOME}/.cargo/bin:$$PATH"; \
-	rustup component add rust-analyzer clippy rustfmt
-	@echo "Rust installé"
+	rustup -q component add rust-analyzer clippy rustfmt
+	@printf "${GREEN}Rust installé${NLINE}"
 
 check-node:
 	@node --version >/dev/null 2>&1 && \
@@ -76,15 +92,14 @@ check-node:
 	${MAKE} --no-print-directory get-node
 
 get-node:
+	@printf "${BLUE}installation de node...${BLINE}"
 	@if [ ! -s "${NVM_DIR}/nvm.sh" ]; then \
 		export NVM_DIR="${NVM_DIR}"; \
 		curl -fsSL "${NVM_INSTALL_URL}" | bash; \
 	fi
 	@export NVM_DIR="${NVM_DIR}"; \
 	. "${NVM_DIR}/nvm.sh"; \
-	nvm install --lts; \
-	nvm alias default 'lts/*'; \
-	nvm use default
-	@echo "Node et npm installés"
+	nvm install --lts --default --no-progress >/dev/null
+	@printf "${GREEN}Node installé${NLINE}"
 
-.PHONY: check-nvim check-version get-nvim check-dependencies check-rust check-node get-rust get-node
+.PHONY: all check-nvim check-version get-nvim check-dependencies check-rust check-node get-rust get-node
