@@ -15,7 +15,28 @@ $(if $(filter ${UNAME_S},${SUPPORTED_NVIM_SYSTEMS}),,\
 $(if $(filter ${NVIM_ARCH},${SUPPORTED_NVIM_ARCHS}),,\
 	$(error Architecture non prise en charge : ${UNAME_M}))
 
-NVIM_LATEST_API := https://api.github.com/repos/neovim/neovim/releases/latest
+RESET	= \033[0m
+LCLEAR	= \033[0K
+CHIDE	= \033[?25l
+CSHOW	= \033[?25h
+GREEN	= \033[32m
+YELLOW	= \033[33m
+BLUE	= \033[34m
+RED		= \033[31m
+
+BLINE	= ${RESET}${LCLEAR}${CHIDE}\r
+NLINE	= ${RESET}${LCLEAR}${CSHOW}\n
+
+all: check-nvim  check-dependencies
+
+.PHONY: all
+.NOTPARALLEL:
+
+################################################################################
+#                                                                              #
+#                                     NVIM                                     #
+#                                                                              #
+################################################################################
 
 ifeq (${UNAME_S},Linux)
 NVIM_DIR	?= ${HOME}/appimage
@@ -29,29 +50,8 @@ NVIM		:= ${NVIM_DIR}/bin/nvim
 NVIM_ASSET	:= nvim-macos-${NVIM_ARCH}.tar.gz
 endif
 
-NVIM_DOWNLOAD_URL := https://github.com/neovim/neovim/releases/latest/download/${NVIM_ASSET}
-
-NVM_DIR			?= ${HOME}/.nvm
-NVM_INSTALL_URL	:= https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.5/install.sh
-
-RESET	= \033[0m
-NLINE	= ${RESET}\033[0K\n
-BLINE	= ${RESET}\033[0K\r
-GREEN	= \033[32m
-YELLOW	= \033[33m
-BLUE	= \033[34m
-RED		= \033[31m
-
-all: check-nvim  check-dependencies
-
-.PHONY: all
-.NOTPARALLEL:
-
-################################################################################
-#                                                                              #
-#                                     NVIM                                     #
-#                                                                              #
-################################################################################
+NVIM_LATEST_API		:= https://api.github.com/repos/neovim/neovim/releases/latest
+NVIM_DOWNLOAD_URL	:= https://github.com/neovim/neovim/releases/latest/download/${NVIM_ASSET}
 
 check-nvim:
 	@if [ ! -x "${NVIM}" ]; then \
@@ -117,6 +117,9 @@ endif
 #                                DEPENDENCIES                                  #
 #                                                                              #
 ################################################################################
+
+NVM_DIR			?= ${HOME}/.nvm
+NVM_INSTALL_URL	:= https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.5/install.sh
 
 check-dependencies: check-rust check-node
 	@export PATH="${HOME}/.cargo/bin:$$PATH"; \
