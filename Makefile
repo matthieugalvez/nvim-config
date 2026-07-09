@@ -87,12 +87,12 @@ ifeq (${UNAME_S},Linux)
 	@chmod u+x "${NVIM}.tmp"
 	@mv "${NVIM}.tmp" "${NVIM}"
 else ifeq (${UNAME_S},Darwin)
-	@if [ -z "${NVIM_DIR}" ] \
-		|| [ "${NVIM_DIR}" = "/" ] \
-		|| [ "${NVIM_DIR}" = "${HOME}" ]; then \
-		printf "${RED}NVIM_DIR dangereux : ${NVIM_DIR}${NLINE}" >&2; \
-		exit 1; \
-	fi
+	@case "${NVIM_DIR}" in \
+		""|"${HOME}"|*/) \
+			printf "${RED}NVIM_DIR dangereux : ${NVIM_DIR}${NLINE}" >&2; \
+			exit 1; \
+			;; \
+	esac
 	@rm -rf "${NVIM_DIR}.tmp"
 	@mkdir -p "${NVIM_DIR}.tmp"
 	@curl -fLsS \
