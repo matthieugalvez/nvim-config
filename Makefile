@@ -1,9 +1,35 @@
-NVIM ?= ${HOME}/appimage/nvim.appimage
-NVIM_LATEST_API := https://api.github.com/repos/neovim/neovim/releases/latest
-NVIM_APPIMAGE_URL := https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
+UNAME_S := $(shell uname -s)
+UNAME_M := $(shell uname -m)
 
-NVM_DIR ?= ${HOME}/.nvm
-NVM_INSTALL_URL := https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.5/install.sh
+NVIM_ARCH := $(shell \
+	printf '%s\n' "${UNAME_M}" \
+	| sed 's/^aarch64$$/arm64/' \
+	)
+
+SUPPORTED_NVIM_SYSTEMS := Linux Darwin
+SUPPORTED_NVIM_ARCHS := x86_64 arm64
+
+$(if $(filter ${UNAME_S},${SUPPORTED_NVIM_SYSTEMS}),,\
+	$(error Système non pris en charge : ${UNAME_S}))
+
+$(if $(filter ${NVIM_ARCH},${SUPPORTED_NVIM_ARCHS}),,\
+	$(error Architecture non prise en charge : ${UNAME_M}))
+
+NVIM_LATEST_API := https://api.github.com/repos/neovim/neovim/releases/latest
+
+ifeq (${UNAME_S},Linux)
+NVIM_DIR ?= ${HOME}/appimage
+NVIM := ${NVIM_DIR}/nvim.appimage
+NVIM_ASSET := nvim-linux-${NVIM_ARCH}.appimage
+endif
+
+ifeq (${UNAME_S},Darwin)
+NVIM_DIR ?= ${HOME}/.local/nvim
+NVIM := ${NVIM_DIR}/bin/nvim
+NVIM_ASSET := nvim-macos-${NVIM_ARCH}.tar.gz
+endif
+
+NVIM_DOWNLOAD_URL := https://github.com/neovim/neovim/releases/latest/download/${NVIM_ASSET}
 
 RESET	=	\033[0m
 NLINE	=	${RESET}\033[0K\n
@@ -14,6 +40,14 @@ BLUE	=	\033[34m
 RED		=	\033[31m
 
 all: check-nvim  check-dependencies
+
+.PHONY : all
+
+################################################################################
+#                                                                              #
+#                                     NVIM                                     #
+#                                                                              #
+################################################################################
 
 check-nvim:
 	@if [ ! -x "${NVIM}" ]; then \
@@ -44,11 +78,34 @@ check-version:
 
 get-nvim:
 	@printf "${BLUE}installation de Neovim...${BLINE}"
-	@mkdir -p "$$(dirname "${NVIM}")"
-	@curl -fLsS -o "${NVIM}.tmp" "${NVIM_APPIMAGE_URL}"
+ifeq (${UNAME_S},Linux)
+	@mkdir -p "${NVIM_DIR}"
+	@curl -fLsS -o "${NVIM}.tmp" "${NVIM_DOWNLOAD_URL}"
 	@chmod u+x "${NVIM}.tmp"
 	@mv "${NVIM}.tmp" "${NVIM}"
+else ifeq (${UNAME_S},Darwin)
+	@rm -rf "${NVIM_DIR}.tmp"
+	@mkdir -p "${NVIM_DIR}.tmp"
+	@curl -fLsS \
+		-o "${NVIM_DIR}.tar.gz.tmp" \
+		"${NVIM_DOWNLOAD_URL}"
+	@xattr -c "${NVIM_DIR}.tar.gz.tmp"
+	@tar -xzf "${NVIM_DIR}.tar.gz.tmp" \
+		--strip-components=1 \
+		-C "${NVIM_DIR}.tmp"
+	@rm -f "${NVIM_DIR}.tar.gz.tmp"
+	@rm -rf "${NVIM_DIR}"
+	@mv "${NVIM_DIR}.tmp" "${NVIM_DIR}"
+endif
 	@printf "${GREEN}Neovim OK${NLINE}"
+
+.PHONY: check-nvim check-version get-nvim
+
+################################################################################
+#                                                                              #
+#                                DEPENDENCIES                                  #
+#                                                                              #
+################################################################################
 
 check-dependencies: check-rust check-node
 	@export PATH="${HOME}/.cargo/bin:$$PATH"; \
@@ -102,4 +159,4 @@ get-node:
 	nvm install --lts --default --no-progress >/dev/null
 	@printf "${GREEN}Node installé${NLINE}"
 
-.PHONY: all check-nvim check-version get-nvim check-dependencies check-rust check-node get-rust get-node
+.PHONY: check-dependencies check-rust check-node get-rust get-node
