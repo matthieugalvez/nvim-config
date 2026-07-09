@@ -6,8 +6,8 @@ NVIM_ARCH := $(shell \
 	| sed 's/^aarch64$$/arm64/' \
 	)
 
-SUPPORTED_NVIM_SYSTEMS := Linux Darwin
-SUPPORTED_NVIM_ARCHS := x86_64 arm64
+SUPPORTED_NVIM_SYSTEMS	:= Linux Darwin
+SUPPORTED_NVIM_ARCHS	:= x86_64 arm64
 
 $(if $(filter ${UNAME_S},${SUPPORTED_NVIM_SYSTEMS}),,\
 	$(error Système non pris en charge : ${UNAME_S}))
@@ -18,33 +18,34 @@ $(if $(filter ${NVIM_ARCH},${SUPPORTED_NVIM_ARCHS}),,\
 NVIM_LATEST_API := https://api.github.com/repos/neovim/neovim/releases/latest
 
 ifeq (${UNAME_S},Linux)
-NVIM_DIR ?= ${HOME}/appimage
-NVIM := ${NVIM_DIR}/nvim.appimage
-NVIM_ASSET := nvim-linux-${NVIM_ARCH}.appimage
+NVIM_DIR	?= ${HOME}/appimage
+NVIM		:= ${NVIM_DIR}/nvim.appimage
+NVIM_ASSET	:= nvim-linux-${NVIM_ARCH}.appimage
 endif
 
 ifeq (${UNAME_S},Darwin)
-NVIM_DIR ?= ${HOME}/.local/nvim
-NVIM := ${NVIM_DIR}/bin/nvim
-NVIM_ASSET := nvim-macos-${NVIM_ARCH}.tar.gz
+NVIM_DIR	?= ${HOME}/.local/nvim
+NVIM		:= ${NVIM_DIR}/bin/nvim
+NVIM_ASSET	:= nvim-macos-${NVIM_ARCH}.tar.gz
 endif
 
 NVIM_DOWNLOAD_URL := https://github.com/neovim/neovim/releases/latest/download/${NVIM_ASSET}
 
-NVM_DIR ?= ${HOME}/.nvm
-NVM_INSTALL_URL := https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.5/install.sh
+NVM_DIR			?= ${HOME}/.nvm
+NVM_INSTALL_URL	:= https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.5/install.sh
 
-RESET	=	\033[0m
-NLINE	=	${RESET}\033[0K\n
-BLINE	=	${RESET}\033[0K\r
-GREEN	=	\033[32m
-YELLOW	=	\033[33m
-BLUE	=	\033[34m
-RED		=	\033[31m
+RESET	= \033[0m
+NLINE	= ${RESET}\033[0K\n
+BLINE	= ${RESET}\033[0K\r
+GREEN	= \033[32m
+YELLOW	= \033[33m
+BLUE	= \033[34m
+RED		= \033[31m
 
 all: check-nvim  check-dependencies
 
 .PHONY: all
+.NOTPARALLEL:
 
 ################################################################################
 #                                                                              #
