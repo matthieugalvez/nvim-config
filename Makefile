@@ -17,15 +17,13 @@ $(if $(filter ${NVIM_ARCH},${SUPPORTED_NVIM_ARCHS}),,\
 
 RESET	= \033[0m
 LCLEAR	= \033[0K
-CHIDE	= \033[?25l
-CSHOW	= \033[?25h
 GREEN	= \033[32m
 YELLOW	= \033[33m
 BLUE	= \033[34m
 RED		= \033[31m
 
-BLINE	= ${RESET}${LCLEAR}${CHIDE}\r
-NLINE	= ${RESET}${LCLEAR}${CSHOW}\n
+BLINE	= ${RESET}${LCLEAR}\r
+NLINE	= ${RESET}${LCLEAR}\n
 
 all: check-nvim  check-dependencies
 
@@ -39,7 +37,7 @@ all: check-nvim  check-dependencies
 ################################################################################
 
 ifeq (${UNAME_S},Linux)
-NVIM_DIR	?= ${HOME}/appimage
+NVIM_DIR	?= ${HOME}/Applications/
 NVIM		:= ${NVIM_DIR}/nvim.appimage
 NVIM_ASSET	:= nvim-linux-${NVIM_ARCH}.appimage
 endif
@@ -87,6 +85,8 @@ ifeq (${UNAME_S},Linux)
 	@curl -fLsS -o "${NVIM}.tmp" "${NVIM_DOWNLOAD_URL}"
 	@chmod u+x "${NVIM}.tmp"
 	@mv "${NVIM}.tmp" "${NVIM}"
+	@mkdir -p "${HOME}/.local/bin"
+	@ln -sf "${NVIM}" "${HOME}/.local/bin/nvim"
 else ifeq (${UNAME_S},Darwin)
 	@case "${NVIM_DIR}" in \
 		""|"${HOME}"|*/) \

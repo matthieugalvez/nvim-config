@@ -1,0 +1,347 @@
+# nvim-config
+
+My personal Neovim configuration, written directly in Lua.
+
+It is not a Neovim distribution and does not aim to provide a universal setup.
+It is primarily my own configuration, published as a reference, a source of inspiration, or a starting point for another configuration.
+
+## Requirements
+
+Supported platforms:
+
+### Systems
+Linux
+macOS
+
+### Architectures
+x86_64
+arm64
+
+The Makefile installs portable development tools, but it does not install system packages or use a system package manager.
+
+The following system-level prerequisites should already be available:
+
+- Git
+- curl
+- make
+- sed
+- tar
+- a C/C++ compiler and build toolchain
+- the system utilities required to compile Cargo crates and native plugins
+
+A [Nerd Font](https://www.nerdfonts.com/) is strongly recommended because the configuration uses icons throughout the interface.
+
+## Installation
+
+### 1. Back up an existing configuration
+
+```sh
+config_home="${XDG_CONFIG_HOME:-${HOME}/.config}"
+
+if [ -e "${config_home}/nvim" ]; then
+    mv \
+        "${config_home}/nvim" \
+        "${config_home}/nvim.backup.$(date +%Y%m%d-%H%M%S)"
+fi
+```
+
+Existing Neovim data can also be moved or removed for a completely clean installation:
+
+```sh
+mv \
+    "${XDG_DATA_HOME:-${HOME}/.local/share}/nvim" \
+    "${XDG_DATA_HOME:-${HOME}/.local/share}/nvim.backup"
+```
+
+This second step is optional.
+
+### 2. Clone the repository
+
+```sh
+git clone \
+    https://github.com/matthieugalvez/nvim-config.git \
+    "${XDG_CONFIG_HOME:-${HOME}/.config}/nvim"
+
+cd "${XDG_CONFIG_HOME:-${HOME}/.config}/nvim"
+```
+
+### 3. Install Neovim and the portable dependencies
+
+```sh
+make
+```
+
+The Makefile checks the current environment and installs missing components.
+
+Running it again later also checks whether a newer stable Neovim release is available.
+
+### 4. Make Neovim available in the shell
+
+The Makefile does not modify the shell's `PATH`.
+
+#### Linux
+
+The default executable is installed at:
+
+```text
+$HOME/Applications/nvim.appimage
+```
+
+And a symlink to it in:
+
+```text
+$HOME/.local/bin/nvim
+```
+
+Add the corresponding directory to the shell profile if its not there already:
+
+```sh
+export PATH="${HOME}/.local/bin:${PATH}"
+```
+
+#### macOS
+
+The default executable is installed at:
+
+```text
+$HOME/.local/nvim/bin/nvim
+```
+
+Add the corresponding directory to the shell profile:
+
+```sh
+export PATH="${HOME}/.local/nvim/bin:${PATH}"
+```
+
+After the first installation, opening a new shell may be necessary for the environment changes to take effect.
+
+### 5. Start Neovim
+
+```sh
+nvim
+```
+
+On the first launch:
+
+1. lazy.nvim installs the configured plugins;
+2. Mason installs the configured language tools;
+3. tree-sitter-manager installs parsers when required.
+
+Useful diagnostic commands:
+
+```vim
+:checkhealth
+:Lazy
+:Mason
+:ConformInfo
+:TSManager
+```
+
+## Custom Neovim installation directory
+
+The Neovim installation directory can be overridden through `NVIM_DIR`:
+
+```sh
+make NVIM_DIR="${HOME}/tools/neovim"
+```
+
+The resulting executable is:
+
+| System | Executable |
+| --- | --- |
+| Linux | `${NVIM_DIR}/nvim.appimage` |
+| macOS | `${NVIM_DIR}/bin/nvim` |
+
+`NVIM_DIR` is the public installation parameter. The final executable path is derived from it by the Makefile.
+
+## Components installed by the Makefile
+
+The Makefile checks or installs:
+
+| Component | Installation method |
+| --- | --- |
+| Neovim | Latest stable official release |
+| Rust | rustup |
+| Rust Analyzer | rustup component |
+| Clippy | rustup component |
+| rustfmt | rustup component |
+| Node | Latest LTS release through NVM |
+| npm | Installed with Node |
+| fd | Cargo crate `fd-find` |
+| ripgrep | Cargo crate `ripgrep` |
+| tree-sitter | Cargo crate `tree-sitter-cli` |
+
+Rust Analyzer, Clippy and rustfmt are intentionally managed by rustup rather than Mason.
+
+## Language tooling
+
+Mason installs the tools used by the configuration when Neovim starts.
+
+| Language or format | LSP and analysis | Linting and Formatting |
+| --- | --- | --- |
+| Bash and shell | bash-language-server | ShellCheck, shfmt |
+| C and C++ | clangd with clang-tidy | clang-format |
+| CSS and SCSS | Biome | Biome |
+| Dockerfile | docker-language-server | dockerfmt |
+| HTML | Biome | Biome |
+| JavaScript and JSX | Biome | Biome |
+| JSON and JSONC | Biome | Biome |
+| Lua | lua-language-server, lazydev.nvim | StyLua |
+| Markdown | Biome | Biome |
+| Python | ty | Ruff fixes and formatting |
+| Rust | Rust Analyzer, Clippy | rustfmt |
+| TOML | Taplo | Taplo |
+| TypeScript and TSX | Biome | Biome |
+| YAML | Biome | Biome |
+| Zig | zls | LSP fallback |
+
+LSP completion capabilities are provided by Blink CMP.
+
+File-operation capabilities from nvim-file-operations are also exposed to LSP servers so that supported servers can follow file creation, deletion and renaming operations.
+
+WARNING: As of yet, Biome don't support SCSS, YAML and Markdown. Still, Mason and Conform are configured to use these implementations as they become available.
+
+## Formatting
+
+Conform formats supported buffers automatically before saving.
+
+When no dedicated formatter is available, LSP formatting is used as a fallback.
+
+The repository includes its own configuration files for:
+
+- Biome
+- Ruff
+- clang-format
+
+Manual formatting is available in normal and visual mode:
+
+| Mapping | Action |
+| --- | --- |
+| `<leader>f` | Format the current buffer or visual selection |
+
+## Main key mappings
+
+The leader key is `Space`.
+
+### General
+
+| Mapping | Action |
+| --- | --- |
+| `<leader>l` | Open lazy.nvim |
+| `<leader>m` | Open Mason |
+| `<leader>s` | Open Tree-sitter Manager |
+| `<leader>d` | Clear search highlighting |
+| `<C-Left>` | Move to the window on the left |
+| `<C-Right>` | Move to the window on the right |
+| `<C-Down>` | Move to the window below |
+| `<C-Up>` | Move to the window above |
+
+### Navigation
+
+| Mapping | Action |
+| --- | --- |
+| `<C-h>` | Toggle Neo-tree |
+| `<leader>tf` | Find files |
+| `<leader>tg` | Search text with live grep |
+| `<leader>tb` | Find open buffers |
+| `<leader>tx` | Search for the word under the cursor |
+
+Inside Telescope, `<C-j>` and `<C-k>` move through the result list.
+
+Files opened from Neo-tree use nvim-window-picker to select the destination window when necessary.
+
+## Main plugins
+
+### Completion and editing
+
+- blink.cmp
+- nvim-autopairs
+
+### Navigation
+
+- telescope.nvim
+- neo-tree.nvim
+- nvim-window-picker
+
+### Notifications
+
+- fidget.nvim
+- nvim-notify
+
+### Theme
+
+- kanagawa.nvim
+
+### Development tools
+
+- nvim-lspconfig
+- mason.nvim
+- mason-lspconfig.nvim
+- mason-tool-installer.nvim
+- conform.nvim
+- tree-sitter-manager.nvim
+
+### Interface
+
+- blink.indent
+- dashboard-nvim
+- lualine.nvim
+- gitsigns.nvim
+- which-key.nvim
+
+Exact plugin revisions are recorded in `lazy-lock.json`.
+
+## Updating
+
+Update the configuration and its portable dependencies with:
+
+```sh
+cd "${XDG_CONFIG_HOME:-${HOME}/.config}/nvim"
+
+git pull
+make
+```
+
+Then start Neovim and synchronize the plugins:
+
+```vim
+:Lazy sync
+```
+
+The committed `lazy-lock.json` keeps plugin versions reproducible across installations.
+
+## Repository structure
+
+```text
+.
+├── config
+│   ├── biome
+│   ├── clang-format
+│   └── ruff
+├── lua
+│   ├── config
+│   │   ├── init.lua
+│   │   ├── keymaps.lua
+│   │   ├── lazy.lua
+│   │   └── settings.lua
+│   └── plugins
+│       ├── autocomplete
+│       ├── navigation
+│       ├── notifications
+│       ├── theme
+│       ├── tools
+│       └── ui
+├── init.lua
+├── lazy-lock.json
+└── Makefile
+```
+
+The root `init.lua` loads `lua/config/init.lua`, which then loads the editor settings, global key mappings and lazy.nvim bootstrap.
+
+Plugin specifications are grouped by purpose under `lua/plugins`.
+
+## Scope
+
+This repository reflects my own workflow and preferences.
+
+It may change without preserving compatibility with existing forks. It is published as a personal configuration that can be studied, adapted or used as a starting point, rather than as a maintained Neovim distribution.
