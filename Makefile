@@ -31,6 +31,9 @@ endif
 
 NVIM_DOWNLOAD_URL := https://github.com/neovim/neovim/releases/latest/download/${NVIM_ASSET}
 
+NVM_DIR ?= ${HOME}/.nvm
+NVM_INSTALL_URL := https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.5/install.sh
+
 RESET	=	\033[0m
 NLINE	=	${RESET}\033[0K\n
 BLINE	=	${RESET}\033[0K\r
@@ -41,7 +44,7 @@ RED		=	\033[31m
 
 all: check-nvim  check-dependencies
 
-.PHONY : all
+.PHONY: all
 
 ################################################################################
 #                                                                              #
@@ -84,6 +87,12 @@ ifeq (${UNAME_S},Linux)
 	@chmod u+x "${NVIM}.tmp"
 	@mv "${NVIM}.tmp" "${NVIM}"
 else ifeq (${UNAME_S},Darwin)
+	@if [ -z "${NVIM_DIR}" ] \
+		|| [ "${NVIM_DIR}" = "/" ] \
+		|| [ "${NVIM_DIR}" = "${HOME}" ]; then \
+		printf "${RED}NVIM_DIR dangereux : ${NVIM_DIR}${NLINE}" >&2; \
+		exit 1; \
+	fi
 	@rm -rf "${NVIM_DIR}.tmp"
 	@mkdir -p "${NVIM_DIR}.tmp"
 	@curl -fLsS \
@@ -149,7 +158,7 @@ check-node:
 	${MAKE} --no-print-directory get-node
 
 get-node:
-	@printf "${BLUE}installation de node...${BLINE}"
+	@printf "${BLUE}installation de Node...${BLINE}"
 	@if [ ! -s "${NVM_DIR}/nvm.sh" ]; then \
 		export NVM_DIR="${NVM_DIR}"; \
 		curl -fsSL "${NVM_INSTALL_URL}" | bash; \
