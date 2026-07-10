@@ -15,15 +15,15 @@ $(if $(filter ${UNAME_S},${SUPPORTED_NVIM_SYSTEMS}),,\
 $(if $(filter ${NVIM_ARCH},${SUPPORTED_NVIM_ARCHS}),,\
 	$(error Unsupported architecture: ${UNAME_M}))
 
-RESET	= \033[0m
-LCLEAR	= \033[0K
-GREEN	= \033[32m
-YELLOW	= \033[33m
-BLUE	= \033[34m
-RED		= \033[31m
+RESET	:= \033[0m
+LCLEAR	:= \033[0K
+GREEN	:= \033[32m
+YELLOW	:= \033[33m
+BLUE	:= \033[34m
+RED		:= \033[31m
 
-BLINE	= ${RESET}${LCLEAR}\r
-NLINE	= ${RESET}${LCLEAR}\n
+BLINE	:= ${RESET}${LCLEAR}\r
+NLINE	:= ${RESET}${LCLEAR}\n
 
 all: check-nvim  check-dependencies
 
@@ -86,7 +86,7 @@ ifeq (${UNAME_S},Linux)
 	@chmod u+x "${NVIM}.tmp"
 	@mv "${NVIM}.tmp" "${NVIM}"
 	@mkdir -p "${HOME}/.local/bin"
-	@ln -sf "${NVIM}" "${HOME}/.local/bin/nvim"
+	@ln -sfT "${NVIM}" "${HOME}/.local/bin/nvim"
 else ifeq (${UNAME_S},Darwin)
 	@case "${NVIM_DIR}" in \
 		""|"${HOME}"|*/) \
