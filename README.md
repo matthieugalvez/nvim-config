@@ -7,14 +7,18 @@ It is primarily my own configuration, published as a reference, a source of insp
 
 ## Requirements
 
+This configuration targets **Neovim 0.12 or later**.
+
 Supported platforms:
 
 ### Systems
 Linux
+
 macOS
 
 ### Architectures
 x86_64
+
 arm64
 
 The Makefile installs portable development tools, but it does not install system packages or use a system package manager.
@@ -39,18 +43,18 @@ A [Nerd Font](https://www.nerdfonts.com/) is strongly recommended because the co
 config_home="${XDG_CONFIG_HOME:-${HOME}/.config}"
 
 if [ -e "${config_home}/nvim" ]; then
-    mv \
-        "${config_home}/nvim" \
-        "${config_home}/nvim.backup.$(date +%Y%m%d-%H%M%S)"
+    mv "${config_home}/nvim" "${config_home}/nvim.backup.$(date +%Y%m%d-%H%M%S)"
 fi
 ```
 
 Existing Neovim data can also be moved or removed for a completely clean installation:
 
 ```sh
-mv \
-    "${XDG_DATA_HOME:-${HOME}/.local/share}/nvim" \
-    "${XDG_DATA_HOME:-${HOME}/.local/share}/nvim.backup"
+data_home="${XDG_DATA_HOME:-${HOME}/.local/share}"
+
+if [ -e "${data_home}/nvim" ]; then
+    mv "${data_home}/nvim" "${data_home}/nvim.backup.$(date +%Y%m%d-%H%M%S)"
+fi
 ```
 
 This second step is optional.
@@ -58,10 +62,7 @@ This second step is optional.
 ### 2. Clone the repository
 
 ```sh
-git clone \
-    https://github.com/matthieugalvez/nvim-config.git \
-    "${XDG_CONFIG_HOME:-${HOME}/.config}/nvim"
-
+git clone https://github.com/matthieugalvez/nvim-config.git "${XDG_CONFIG_HOME:-${HOME}/.config}/nvim"
 cd "${XDG_CONFIG_HOME:-${HOME}/.config}/nvim"
 ```
 
@@ -93,7 +94,7 @@ And a symlink to it in:
 $HOME/.local/bin/nvim
 ```
 
-Add the corresponding directory to the shell profile if its not there already:
+Add the corresponding directory to the shell profile if it is not already there:
 
 ```sh
 export PATH="${HOME}/.local/bin:${PATH}"
@@ -112,6 +113,8 @@ Add the corresponding directory to the shell profile:
 ```sh
 export PATH="${HOME}/.local/nvim/bin:${PATH}"
 ```
+
+#### Restart shell
 
 After the first installation, opening a new shell may be necessary for the environment changes to take effect.
 
@@ -188,7 +191,7 @@ Mason installs the tools used by the configuration when Neovim starts.
 | JSON and JSONC | Biome | Biome |
 | Lua | lua-language-server, lazydev.nvim | StyLua |
 | Markdown | Biome | Biome |
-| Python | ty | Ruff fixes and formatting |
+| Python | ty, Ruff | Ruff fixes and formatting |
 | Rust | Rust Analyzer, Clippy | rustfmt |
 | TOML | Taplo | Taplo |
 | TypeScript and TSX | Biome | Biome |
@@ -199,7 +202,8 @@ LSP completion capabilities are provided by Blink CMP.
 
 File-operation capabilities from nvim-file-operations are also exposed to LSP servers so that supported servers can follow file creation, deletion and renaming operations.
 
-WARNING: As of yet, Biome don't support SCSS, YAML and Markdown. Still, Mason and Conform are configured to use these implementations as they become available.
+> [!WARNING]
+> Biome support for SCSS, YAML and Markdown is still in progress. These filetypes are preconfigured in Conform, but formatting will not work until the installed Biome version supports them.
 
 ## Formatting
 
@@ -297,18 +301,25 @@ Update the configuration and its portable dependencies with:
 
 ```sh
 cd "${XDG_CONFIG_HOME:-${HOME}/.config}/nvim"
-
 git pull
 make
 ```
 
-Then start Neovim and synchronize the plugins:
+Then start Neovim and synchronize the plugins.
+
+If you want the plugin revisions tested before the last push:
+
+```vim
+:Lazy restore
+```
+
+if you want the last available versions of the plugins:
 
 ```vim
 :Lazy sync
 ```
 
-The committed `lazy-lock.json` keeps plugin versions reproducible across installations.
+The committed `lazy-lock.json` keeps plugin versions reproducible across installations. If you update the plugins at any point, it will create a conflict to resolve when pulling a newer version of this project.
 
 ## Repository structure
 
@@ -333,7 +344,9 @@ The committed `lazy-lock.json` keeps plugin versions reproducible across install
 │       └── ui
 ├── init.lua
 ├── lazy-lock.json
-└── Makefile
+├── Licence
+├── Makefile
+└── README.md
 ```
 
 The root `init.lua` loads `lua/config/init.lua`, which then loads the editor settings, global key mappings and lazy.nvim bootstrap.
