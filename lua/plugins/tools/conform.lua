@@ -18,9 +18,6 @@ return {
 	},
 
 	opts = function()
-		local config_path = vim.fn.stdpath("config") .. "/config"
-		local ruff_config = config_path .. "/ruff/ruff.toml"
-
 		return {
 			format_on_save = {
 				lsp_format = "fallback",
@@ -48,35 +45,6 @@ return {
 				typescript = { "biome-check" },
 				typescriptreact = { "biome-check" },
 				yaml = { "biome-check" },
-			},
-
-			formatters = {
-				ruff_fix = {
-					append_args = {
-						"--config",
-						ruff_config,
-					},
-				},
-
-				ruff_format = {
-					append_args = {
-						"--config",
-						ruff_config,
-					},
-				},
-
-				["clang-format"] = {
-					append_args = {
-						"--style=file:" .. config_path .. "/clang-format/.clang-format",
-					},
-				},
-
-				["biome-check"] = {
-					append_args = {
-						"--config-path",
-						config_path .. "/biome/biome.json",
-					},
-				},
 			},
 		}
 	end,

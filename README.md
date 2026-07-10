@@ -213,12 +213,6 @@ Conform formats supported buffers automatically before saving.
 
 When no dedicated formatter is available, LSP formatting is used as a fallback.
 
-The repository includes its own configuration files for:
-
-- Biome
-- Ruff
-- clang-format
-
 Manual formatting is available in normal and visual mode:
 
 | Mapping | Action |
@@ -327,10 +321,6 @@ Updating plugins modifies `lazy-lock.json` locally.
 
 ```text
 .
-├── config
-│   ├── biome
-│   ├── clang-format
-│   └── ruff
 ├── lua
 │   ├── config
 │   │   ├── init.lua
