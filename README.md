@@ -17,15 +17,16 @@ Linux
 macOS
 
 ### Architectures
-x86_64
+`x86_64`
 
-arm64
+`arm64` (`aarch64`)
 
 The Makefile installs portable development tools, but it does not install system packages or use a system package manager.
 
 The following system-level prerequisites should already be available:
 
-- Git
+- Git 2.19 or later
+- Bash
 - curl
 - make
 - sed
@@ -47,7 +48,7 @@ if [ -e "${config_home}/nvim" ]; then
 fi
 ```
 
-Existing Neovim data can also be moved or removed for a completely clean installation:
+Existing Neovim data can also be moved or removed for a clean plugin and data installation:
 
 ```sh
 data_home="${XDG_DATA_HOME:-${HOME}/.local/share}"
@@ -88,7 +89,7 @@ The default executable is installed at:
 $HOME/Applications/nvim.appimage
 ```
 
-And a symlink to it in:
+The Makefile also creates a symlink at:
 
 ```text
 $HOME/.local/bin/nvim
@@ -114,7 +115,7 @@ Add the corresponding directory to the shell profile:
 export PATH="${HOME}/.local/nvim/bin:${PATH}"
 ```
 
-#### Restart shell
+#### Restart the shell
 
 After the first installation, opening a new shell may be necessary for the environment changes to take effect.
 
@@ -178,32 +179,33 @@ Rust Analyzer, Clippy and rustfmt are intentionally managed by rustup rather tha
 
 ## Language tooling
 
-Mason installs the tools used by the configuration when Neovim starts.
+Mason installs the configured language servers, linters, and formatters, except for the Rust tools managed by rustup.
 
-| Language or format | LSP and analysis | Linting and Formatting |
+| Language or format | LSP and analysis | Linting and formatting |
 | --- | --- | --- |
 | Bash and shell | bash-language-server | ShellCheck, shfmt |
 | C and C++ | clangd with clang-tidy | clang-format |
-| CSS and SCSS | Biome | Biome |
+| CSS | Biome | Biome |
 | Dockerfile | docker-language-server | dockerfmt |
 | HTML | Biome | Biome |
 | JavaScript and JSX | Biome | Biome |
 | JSON and JSONC | Biome | Biome |
 | Lua | lua-language-server, lazydev.nvim | StyLua |
-| Markdown | Biome | Biome |
+| Markdown | Biome* | Biome* |
 | Python | ty, Ruff | Ruff fixes and formatting |
 | Rust | Rust Analyzer, Clippy | rustfmt |
+| SCSS | Biome* | Biome* |
 | TOML | Taplo | Taplo |
 | TypeScript and TSX | Biome | Biome |
-| YAML | Biome | Biome |
+| YAML | Biome* | Biome* |
 | Zig | zls | LSP fallback |
+
+> [!WARNING]
+> \* Biome support for SCSS, YAML, and Markdown is still in progress. These file types are preconfigured in Conform, so formatting will become available once Biome supports them. LSP support will also require the corresponding Neovim LSP configuration to recognize them.
 
 LSP completion capabilities are provided by Blink CMP.
 
 File-operation capabilities from nvim-file-operations are also exposed to LSP servers so that supported servers can follow file creation, deletion and renaming operations.
-
-> [!WARNING]
-> Biome support for SCSS, YAML and Markdown is still in progress. These filetypes are preconfigured in Conform, but formatting will not work until the installed Biome version supports them.
 
 ## Formatting
 
@@ -297,7 +299,7 @@ Exact plugin revisions are recorded in `lazy-lock.json`.
 
 ## Updating
 
-Update the configuration and its portable dependencies with:
+Update the configuration and re-run the environment checks with:
 
 ```sh
 cd "${XDG_CONFIG_HOME:-${HOME}/.config}/nvim"
@@ -305,21 +307,21 @@ git pull
 make
 ```
 
-Then start Neovim and synchronize the plugins.
+Then choose how plugin revisions should be handled.
 
-If you want the plugin revisions tested before the last push:
+To restore the plugin revisions recorded in `lazy-lock.json`:
 
 ```vim
 :Lazy restore
 ```
 
-if you want the last available versions of the plugins:
+To update plugins to the latest revisions allowed by their specifications:
 
 ```vim
 :Lazy sync
 ```
 
-The committed `lazy-lock.json` keeps plugin versions reproducible across installations. If you update the plugins at any point, it will create a conflict to resolve when pulling a newer version of this project.
+Updating plugins modifies `lazy-lock.json` locally.
 
 ## Repository structure
 
@@ -344,7 +346,7 @@ The committed `lazy-lock.json` keeps plugin versions reproducible across install
 │       └── ui
 ├── init.lua
 ├── lazy-lock.json
-├── Licence
+├── LICENSE
 ├── Makefile
 └── README.md
 ```
@@ -358,3 +360,7 @@ Plugin specifications are grouped by purpose under `lua/plugins`.
 This repository reflects my own workflow and preferences.
 
 It may change without preserving compatibility with existing forks. It is published as a personal configuration that can be studied, adapted or used as a starting point, rather than as a maintained Neovim distribution.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
