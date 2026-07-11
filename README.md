@@ -261,6 +261,18 @@ Files opened from Neo-tree use nvim-window-picker to select the destination wind
 - blink.cmp
 - nvim-autopairs
 
+### Display
+
+- blink.indent
+- gitsigns.nvim
+- render-markdown
+
+### Interface
+
+- dashboard-nvim
+- lualine.nvim
+- which-key.nvim
+
 ### Navigation
 
 - telescope.nvim
@@ -284,14 +296,6 @@ Files opened from Neo-tree use nvim-window-picker to select the destination wind
 - mason-tool-installer.nvim
 - conform.nvim
 - tree-sitter-manager.nvim
-
-### Interface
-
-- blink.indent
-- dashboard-nvim
-- lualine.nvim
-- gitsigns.nvim
-- which-key.nvim
 
 Exact plugin revisions are recorded in `lazy-lock.json`.
 
@@ -333,11 +337,12 @@ Updating plugins modifies `lazy-lock.json` locally.
 │   │   └── settings.lua
 │   └── plugins
 │       ├── autocomplete
+│       ├── display
+│       ├── interface
 │       ├── navigation
 │       ├── notifications
 │       ├── theme
-│       ├── tools
-│       └── ui
+│       └── tools
 ├── init.lua
 ├── lazy-lock.json
 ├── LICENSE

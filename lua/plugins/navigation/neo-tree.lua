@@ -41,7 +41,15 @@ return {
 			},
 		},
 
+		---@module 'neo-tree'
+		---@type neotree.Config
 		opts = {
+			filesystem = {
+				filtered_items = {
+					visible = true,
+				},
+			},
+
 			window = {
 				mappings = {
 					["<CR>"] = "open_with_window_picker",

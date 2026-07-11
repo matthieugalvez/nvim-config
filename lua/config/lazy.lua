@@ -17,12 +17,12 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	spec = {
 		{ import = "plugins.autocomplete" },
+		{ import = "plugins.display" },
+		{ import = "plugins.interface" },
 		{ import = "plugins.navigation" },
 		{ import = "plugins.notifications" },
 		{ import = "plugins.theme" },
 		{ import = "plugins.tools" },
-		{ import = "plugins.ui" },
-		{ import = "plugins.view" },
 	},
 	install = { colorscheme = { "kanagawa" } },
 	checker = { enabled = true },
