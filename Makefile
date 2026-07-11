@@ -15,6 +15,9 @@ $(if $(filter ${UNAME_S},${SUPPORTED_NVIM_SYSTEMS}),,\
 $(if $(filter ${NVIM_ARCH},${SUPPORTED_NVIM_ARCHS}),,\
 	$(error Unsupported architecture: ${UNAME_M}))
 
+MAKEFILE_DIR	:= $(abspath $(dir $(lastword ${MAKEFILE_LIST})))
+MAKE_ARGS		:= --no-print-directory -C "${MAKEFILE_DIR}"
+
 RESET	:= \033[0m
 LCLEAR	:= \033[0K
 GREEN	:= \033[32m
@@ -22,12 +25,16 @@ YELLOW	:= \033[33m
 BLUE	:= \033[34m
 RED		:= \033[31m
 
-BLINE	:= ${RESET}${LCLEAR}\r
+BLINE	:= ${RED}${LCLEAR}\r
 NLINE	:= ${RESET}${LCLEAR}\n
 
-all: check-nvim  check-dependencies
+all:
+	@trap 'printf "${RESET}"' 0; \
+	${MAKE} ${MAKE_ARGS} bootstrap
 
-.PHONY: all
+bootstrap: check-nvim check-dependencies
+
+.PHONY: all bootstrap
 .NOTPARALLEL:
 
 ################################################################################
@@ -37,7 +44,7 @@ all: check-nvim  check-dependencies
 ################################################################################
 
 ifeq (${UNAME_S},Linux)
-NVIM_DIR	?= ${HOME}/Applications/
+NVIM_DIR	?= ${HOME}/Applications
 NVIM		:= ${NVIM_DIR}/nvim.appimage
 NVIM_ASSET	:= nvim-linux-${NVIM_ARCH}.appimage
 endif
@@ -49,14 +56,15 @@ NVIM_ASSET	:= nvim-macos-${NVIM_ARCH}.tar.gz
 endif
 
 NVIM_LATEST_API		:= https://api.github.com/repos/neovim/neovim/releases/latest
-NVIM_DOWNLOAD_URL	:= https://github.com/neovim/neovim/releases/latest/download/${NVIM_ASSET}
+NVIM_DOWNLOAD_URL	:= \
+	https://github.com/neovim/neovim/releases/latest/download/${NVIM_ASSET}
 
 check-nvim:
 	@if [ ! -x "${NVIM}" ]; then \
 		printf "${YELLOW}Neovim is not installed${NLINE}"; \
-		${MAKE} --no-print-directory get-nvim; \
+		${MAKE} ${MAKE_ARGS} get-nvim; \
 	else \
-		${MAKE} --no-print-directory check-version; \
+		${MAKE} ${MAKE_ARGS} check-version; \
 	fi
 
 check-version:
@@ -75,7 +83,7 @@ check-version:
 		printf "${GREEN}Neovim is up to date${NLINE}"; \
 	else \
 		printf "${BLUE}A Neovim update is available${NLINE}"; \
-		${MAKE} --no-print-directory get-nvim; \
+		${MAKE} ${MAKE_ARGS} get-nvim; \
 	fi
 
 get-nvim:
@@ -121,19 +129,17 @@ endif
 NVM_DIR			?= ${HOME}/.nvm
 NVM_INSTALL_URL	:= https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.5/install.sh
 
+check-dependencies: export PATH := ${HOME}/.cargo/bin:${PATH}
 check-dependencies: check-rust check-node
-	@export PATH="${HOME}/.cargo/bin:$$PATH"; \
-	if ! fd --version >/dev/null 2>&1; then \
+	@if ! fd --version >/dev/null 2>&1; then \
 		printf "${BLUE}Installing fd-find...${BLINE}"; \
 		cargo -q install --locked fd-find; \
 	fi
-	@export PATH="${HOME}/.cargo/bin:$$PATH"; \
-	if ! rg --version >/dev/null 2>&1; then \
+	@if ! rg --version >/dev/null 2>&1; then \
 		printf "${BLUE}Installing ripgrep...${BLINE}"; \
 		cargo -q install --locked ripgrep; \
 	fi
-	@export PATH="${HOME}/.cargo/bin:$$PATH"; \
-	if ! tree-sitter --version >/dev/null 2>&1; then \
+	@if ! tree-sitter --version >/dev/null 2>&1; then \
 		printf "${BLUE}Installing tree-sitter-cli...${BLINE}"; \
 		cargo -q install --locked tree-sitter-cli; \
 	fi
@@ -146,7 +152,7 @@ check-rust:
 	rust-analyzer --version >/dev/null 2>&1 && \
 	cargo clippy --version >/dev/null 2>&1 && \
 	rustfmt --version >/dev/null 2>&1 || \
-	${MAKE} --no-print-directory get-rust
+	${MAKE} ${MAKE_ARGS} get-rust
 
 get-rust:
 	@printf "${BLUE}Installing Rust components...${BLINE}"
@@ -160,7 +166,7 @@ get-rust:
 check-node:
 	@node --version >/dev/null 2>&1 && \
 	npm --version >/dev/null 2>&1 || \
-	${MAKE} --no-print-directory get-node
+	${MAKE} ${MAKE_ARGS} get-node
 
 get-node:
 	@printf "${BLUE}Installing Node...${BLINE}"
