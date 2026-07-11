@@ -28,6 +28,7 @@ The following system-level prerequisites should already be available:
 - Git 2.19 or later
 - Bash
 - curl
+- FUSE on Linux systems to execute the appimage. Alternatively, you can call the installed appimage with `--appimage-extract` argument to unwrap it
 - make
 - sed
 - tar

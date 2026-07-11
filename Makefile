@@ -73,17 +73,20 @@ check-version:
 		curl -fsSL "${NVIM_LATEST_API}" \
 		| sed -n 's/.*"tag_name"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' \
 	); \
-	if [ -z "$$installed_version" ] || [ -z "$$latest_version" ]; then \
+	if [ -z "$$installed_version" ]; then \
 		printf "${RED}Unable to determine the Neovim version${NLINE}" >&2; \
 		exit 1; \
-	fi; \
-	printf "${BLUE}Installed version: %s${NLINE}" "$$installed_version"; \
-	printf "${BLUE}Latest stable version: %s${NLINE}" "$$latest_version"; \
-	if [ "$$installed_version" = "$$latest_version" ]; then \
-		printf "${GREEN}Neovim is up to date${NLINE}"; \
+	elif [ -z "$$latest_version" ]; then \
+		printf "${YELLOW}Unable to get last stable version. Keeping local one${NLINE}"; \
 	else \
-		printf "${BLUE}A Neovim update is available${NLINE}"; \
-		${MAKE} ${MAKE_ARGS} get-nvim; \
+		printf "${BLUE}Installed version: %s${NLINE}" "$$installed_version"; \
+		printf "${BLUE}Latest stable version: %s${NLINE}" "$$latest_version"; \
+		if [ "$$installed_version" = "$$latest_version" ]; then \
+			printf "${GREEN}Neovim is up to date${NLINE}"; \
+		else \
+			printf "${BLUE}A Neovim update is available${NLINE}"; \
+			${MAKE} ${MAKE_ARGS} get-nvim; \
+		fi; \
 	fi
 
 get-nvim:
