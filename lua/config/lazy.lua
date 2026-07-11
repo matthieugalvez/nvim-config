@@ -22,6 +22,7 @@ require("lazy").setup({
 		{ import = "plugins.theme" },
 		{ import = "plugins.tools" },
 		{ import = "plugins.ui" },
+		{ import = "plugins.view" },
 	},
 	install = { colorscheme = { "kanagawa" } },
 	checker = { enabled = true },

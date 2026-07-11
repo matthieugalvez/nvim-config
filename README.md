@@ -12,14 +12,16 @@ This configuration targets **Neovim 0.12 or later**.
 Supported platforms:
 
 ### Systems
-Linux
 
-macOS
+- Linux
+- macOS
 
 ### Architectures
-`x86_64`
 
-`arm64` (`aarch64`)
+- `x86_64`
+- `arm64` (`aarch64`)
+
+### System packages
 
 The Makefile installs portable development tools, but it does not install system packages or use a system package manager.
 
@@ -203,8 +205,7 @@ Mason installs the configured language servers, linters, and formatters, except 
 | YAML | Biome[^biome] | Biome[^biome] |
 | Zig | zls | LSP fallback |
 
-> [!WARNING]
-> [^biome]: Biome support for SCSS, YAML, and Markdown is still in progress. These file types are preconfigured in Conform, so formatting will become available once Biome supports them. LSP support will also require the corresponding Neovim LSP configuration to recognize them.
+[^biome]: Biome support for SCSS, YAML, and Markdown is still in progress. These file types are preconfigured in Conform, so formatting will become available once Biome supports them. LSP support will also require the corresponding Neovim LSP configuration to recognize them.
 
 LSP completion capabilities are provided by Blink CMP.
 
