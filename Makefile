@@ -80,7 +80,8 @@ check-version:
 		printf "${RED}Unable to determine the Neovim version${NLINE}" >&2; \
 		exit 1; \
 	elif [ -z "$$latest_version" ]; then \
-		printf "${YELLOW}Unable to get last stable version. Keeping local one${NLINE}"; \
+		printf "${YELLOW}Unable to determine the latest stable version; \
+			keeping the installed version${NLINE}"; \
 	else \
 		printf "${BLUE}Installed version: %s${NLINE}" "$$installed_version"; \
 		printf "${BLUE}Latest stable version: %s${NLINE}" "$$latest_version"; \

@@ -16,21 +16,21 @@ vim.diagnostic.config({
 	},
 })
 
--- Numéros de ligne
+-- Line numbers
 opt.number = true
 
--- Tabulations et indentation
+-- Tabs and indentation
 opt.tabstop = 4
 opt.expandtab = true
 opt.softtabstop = 4
 opt.shiftwidth = 4
 
--- Recherche
+-- Search
 opt.ignorecase = true
 opt.smartcase = true
 opt.hlsearch = true
 
--- Apparence
+-- Appearance
 opt.cursorline = true
 opt.showmode = false
 opt.modeline = false
@@ -39,17 +39,17 @@ opt.termguicolors = true
 opt.background = "dark"
 opt.signcolumn = "yes"
 
--- Presse-papiers
+-- Clipboard
 opt.clipboard = "unnamedplus"
 
--- Fenêtres
+-- Windows
 opt.splitright = true
 opt.splitbelow = true
 
--- Historique d’annulation
+-- Undo history
 opt.undofile = true
 
--- Caractères invisibles
+-- Invisible characters
 opt.list = true
 opt.listchars = {
 	nbsp = "␣",

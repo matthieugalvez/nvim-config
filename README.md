@@ -28,7 +28,7 @@ The following system-level prerequisites should already be available:
 - Git 2.19 or later
 - Bash
 - curl
-- FUSE on Linux systems to execute the appimage. Alternatively, you can call the installed appimage with `--appimage-extract` argument to unwrap it
+- FUSE on Linux to run the installed AppImage[^fuse]
 - make
 - sed
 - tar
@@ -36,6 +36,8 @@ The following system-level prerequisites should already be available:
 - the system utilities required to compile Cargo crates and native plugins
 
 A [Nerd Font](https://www.nerdfonts.com/) is strongly recommended because the configuration uses icons throughout the interface.
+
+[^fuse]: If FUSE is unavailable, see the [official AppImage fallback instructions](https://docs.appimage.org/user-guide/troubleshooting/fuse.html#fallback-if-fuse-can-t-be-made-working) to extract and run the AppImage.
 
 ## Installation
 
@@ -192,17 +194,17 @@ Mason installs the configured language servers, linters, and formatters, except 
 | JavaScript and JSX | Biome | Biome |
 | JSON and JSONC | Biome | Biome |
 | Lua | lua-language-server, lazydev.nvim | StyLua |
-| Markdown | Biome* | Biome* |
+| Markdown | Biome[^biome] | Biome[^biome] |
 | Python | ty, Ruff | Ruff fixes and formatting |
 | Rust | Rust Analyzer, Clippy | rustfmt |
-| SCSS | Biome* | Biome* |
+| SCSS | Biome[^biome] | Biome[^biome] |
 | TOML | Taplo | Taplo |
 | TypeScript and TSX | Biome | Biome |
-| YAML | Biome* | Biome* |
+| YAML | Biome[^biome] | Biome[^biome] |
 | Zig | zls | LSP fallback |
 
 > [!WARNING]
-> \* Biome support for SCSS, YAML, and Markdown is still in progress. These file types are preconfigured in Conform, so formatting will become available once Biome supports them. LSP support will also require the corresponding Neovim LSP configuration to recognize them.
+> [^biome]: Biome support for SCSS, YAML, and Markdown is still in progress. These file types are preconfigured in Conform, so formatting will become available once Biome supports them. LSP support will also require the corresponding Neovim LSP configuration to recognize them.
 
 LSP completion capabilities are provided by Blink CMP.
 
