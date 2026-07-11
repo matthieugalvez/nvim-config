@@ -24,12 +24,15 @@ GREEN	:= \033[32m
 YELLOW	:= \033[33m
 BLUE	:= \033[34m
 RED		:= \033[31m
+HCURSOR	:= \033[?25l
+SCURSOR	:= \033[?25h
 
 BLINE	:= ${RED}${LCLEAR}\r
 NLINE	:= ${RESET}${LCLEAR}\n
 
 all:
-	@trap 'printf "${RESET}"' 0; \
+	@trap 'printf "${RESET}${SCURSOR}"' 0; \
+	printf "${HCURSOR}"; \
 	${MAKE} ${MAKE_ARGS} bootstrap
 
 bootstrap: check-nvim check-dependencies
