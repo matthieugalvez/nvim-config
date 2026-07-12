@@ -31,6 +31,8 @@ opt.smartcase = true
 opt.hlsearch = true
 
 -- Appearance
+opt.title = true
+opt.titlestring = "%{getcwd()} - Neovim"
 opt.cursorline = true
 opt.showmode = false
 opt.modeline = false
