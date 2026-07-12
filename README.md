@@ -133,7 +133,7 @@ nvim
 On the first launch:
 
 1. lazy.nvim installs the configured plugins;
-2. Mason installs the configured language tools;
+2. Mason installs the language tools it manages;
 3. tree-sitter-manager installs parsers when required.
 
 Useful diagnostic commands:
@@ -184,7 +184,7 @@ Rust Analyzer, Clippy and rustfmt are intentionally managed by rustup rather tha
 
 ## Language tooling
 
-Mason installs the configured language servers, linters, and formatters, except for the Rust tools managed by rustup.
+Mason installs most of the configured language servers, linters, and formatters. Rust tooling is managed by rustup, while OCaml tooling is expected to be provided by an active opam switch.
 
 | Language or format | LSP and analysis | Linting and formatting |
 | --- | --- | --- |
@@ -197,6 +197,7 @@ Mason installs the configured language servers, linters, and formatters, except 
 | JSON and JSONC | Biome | Biome |
 | Lua | lua-language-server, lazydev.nvim | StyLua |
 | Markdown | Biome[^biome] | Biome[^biome] |
+| OCaml and Ocaml interface | OCaml-lsp-server[^ocaml] | ocamlformat[^ocaml] |
 | Python | ty, Ruff | Ruff fixes and formatting |
 | Rust | Rust Analyzer, Clippy | rustfmt |
 | SCSS | Biome[^biome] | Biome[^biome] |
@@ -206,6 +207,8 @@ Mason installs the configured language servers, linters, and formatters, except 
 | Zig | zls | LSP fallback |
 
 [^biome]: Biome support for SCSS, YAML, and Markdown is still in progress. These file types are preconfigured in Conform, so formatting will become available once Biome supports them. LSP support will also require the corresponding Neovim LSP configuration to recognize them.
+
+[^ocaml]: OCaml tooling is managed outside this repository. `ocamllsp` is enabled only when the executable is available in Neovim's `PATH`, and Conform uses `ocamlformat` when available, typically from the active opam switch.
 
 LSP completion capabilities are provided by Blink CMP.
 
@@ -265,7 +268,7 @@ Files opened from Neo-tree use nvim-window-picker to select the destination wind
 
 - blink.indent
 - gitsigns.nvim
-- render-markdown
+- render-markdown.nvim
 
 ### Interface
 

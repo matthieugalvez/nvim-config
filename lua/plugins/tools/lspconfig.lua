@@ -27,6 +27,10 @@ return {
 				},
 			})
 
+			if vim.fn.executable("ocamllsp") == 1 then
+				vim.lsp.enable("ocamllsp")
+			end
+
 			vim.lsp.config("rust_analyzer", {
 				settings = {
 					["rust-analyzer"] = {

@@ -38,6 +38,8 @@ return {
 				lua = { "stylua" },
 				markdown = { "biome-check" },
 				python = { "ruff_fix", "ruff_format" },
+				ocaml = { "ocamlformat" },
+				ocamlinterface = { "ocamlformat" },
 				rust = { "rustfmt" },
 				scss = { "biome-check" },
 				sh = { "shellcheck", "shfmt" },
