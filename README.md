@@ -188,23 +188,23 @@ Mason installs most of the configured language servers, linters, and formatters.
 
 | Language or format | LSP and analysis | Linting and formatting |
 | --- | --- | --- |
-| Bash and shell | bash-language-server | ShellCheck, shfmt |
+| Bash and shell | Bash Language Server | ShellCheck, shfmt |
 | C and C++ | clangd with clang-tidy | clang-format |
 | CSS | Biome | Biome |
-| Dockerfile | docker-language-server | dockerfmt |
+| Dockerfile | Docker Language Server | dockerfmt |
 | HTML | Biome | Biome |
 | JavaScript and JSX | Biome | Biome |
 | JSON and JSONC | Biome | Biome |
-| Lua | lua-language-server, lazydev.nvim | StyLua |
+| Lua | Lua Language Server, lazydev.nvim | StyLua |
 | Markdown | Biome[^biome] | Biome[^biome] |
-| OCaml and Ocaml interface | OCaml-lsp-server[^ocaml] | ocamlformat[^ocaml] |
-| Python | ty, Ruff | Ruff fixes and formatting |
-| Rust | Rust Analyzer, Clippy | rustfmt |
+| OCaml source and interface files | OCaml-LSP[^ocaml] | ocamlformat[^ocaml] |
+| Python | ty, Ruff | Ruff |
+| Rust | rust-analyzer, Clippy | rustfmt |
 | SCSS | Biome[^biome] | Biome[^biome] |
 | TOML | Taplo | Taplo |
 | TypeScript and TSX | Biome | Biome |
 | YAML | Biome[^biome] | Biome[^biome] |
-| Zig | zls | LSP fallback |
+| Zig | ZLS | ZLS (LSP formatting) |
 
 [^biome]: Biome support for SCSS, YAML, and Markdown is still in progress. These file types are preconfigured in Conform, so formatting will become available once Biome supports them. LSP support will also require the corresponding Neovim LSP configuration to recognize them.
 
